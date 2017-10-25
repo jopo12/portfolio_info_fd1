@@ -1,0 +1,421 @@
+\section{Breitensuche}
+%https://www.iro.umontreal.ca/~hahn/IFT3545/GTWA.pdf
+\subsection{Einf\"uhrung}
+
+\paragraph{Modellierung mit Graphen:}Viele Probleme heutzutage k\"onnen mit einem Graphen modelliert und mit Hilfe entsprechender Graphenalgorithmen gel\"ost werden.  
+
+Wir haben gesehen dass ein Graph aus Knoten und Kanten besteht, wobei eine Kante jeweils zwei Knoten verbindet. Viele Probleme aus unserem Alltag k\"onnen mit diesen Grundelementen repr\"asentiert werden. Zum Beispiel kann man das Netz des \"offentlichen Verkehrs als Graphen darstellen, indem man alle Stationen als Knoten abbildet, und die Linien, die die Stationen verbinden als gerichtete Kanten im Graphen, je nachdem in welche Richtung die Verkehrsmittel von der einen Station zur n\"achsten Fahren k\"onnen.
+
+\paragraph{Graphenalgorithmus:}Ein konkretes Problem kann also mit Hilfe von einem Graphen abstrahiert werden. Ein Graphenalgorithmus kann auf einem Graphen angewendet werden, und das Resultat kann wieder auf das urspr\"ungliche, konkrete Problem \"ubertragen werden. Durch diese Abstraktion kann also der gleiche Graphenalgorithmus eine Menge von verschiedenen konkreten Problemen l\"osen.
+
+\paragraph{Traversieren:}Es gibt viele verschiedene Algorithmen f\"ur Graphen, und eine wichtige Klasse von Algorithmen ist das Durchsuchen bzw. Traversieren von Graphen. Beim Traversieren von einem Graphen werden die Knoten des Graphen besucht, und man bewegt sich dabei entlang den Kanten. Der Graph kann auch traversiert werden, um einen bestimmten Knoten im Graphen zu suchen.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                    {$0$};
+  \node[wstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[wstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Ein Beispiels-Graph}
+\label{fig:bfs:graph}
+\end{center}
+\end{figure}
+
+\paragraph{Erreichbarkeit:}Betrachten Sie den Graphen in Abb.~\ref{fig:bfs:graph}. Ausgehend von einem Startknoten m\"ochten wir untersuchen, ob ein Zielknoten erreichbar ist oder nicht. Ist der Knoten 2 von Knoten 0 aus erreichbar? Ist Knoten 5 auch erreichbar?
+
+Um diese Fragen zu beantworten haben Sie vermutlich automatisch den Graphen betrachtet und visuell beurteilt, ob Sie vom Knoten 0 aus gewissen Kanten folgen k\"onnen um den Zielknoten zu erreichen.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick, style=circle]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black,scale=0.7]
+  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                    {$0$};
+  \node[wstate]         (1) [above of=0] {$1$};
+  \node[wstate]         (2) [above left of=0, node distance=2.3cm] {$2$};
+  \node[wstate]         (3) [left of=0, node distance=3.5cm] {$3$};
+  \node[wstate]         (4) [below left of=0] {$4$};
+  \node[wstate]         (5) [below of=0, node distance=3.5cm] {$5$};
+  \node[wstate]         (6) [below right of=0, node distance=3.4cm] {$6$};
+  \node[wstate]         (7) [right of=0, node distance=5cm] {$7$};
+  \node[wstate]         (8) [above right of=0] {$8$};
+  \node[wstate]         (9) [above left of=3, node distance=2.2cm] {$9$};
+  \node[wstate]         (10) [left of=3, node distance=2.5cm] {$10$};
+  \node[wstate]         (11) [below left of=3, node distance=2.2cm] {$11$};
+  \node[wstate]         (12) [above right of=8, node distance=2.2cm] {$12$};
+  \node[wstate]         (13) [right of=8, node distance=2.5cm] {$13$};
+  \node[wstate]         (14) [right of=6,node distance=2.2cm] {$14$};
+  \node[wstate]         (15) [below right of=6, node distance=2.5cm] {$15$};
+  \node[wstate]         (16) [below of=6, node distance=2.2cm] {$16$};
+
+  \path (0) edge           node {} (1)
+            	edge           node {} (2)
+		edge           node {} (3)
+		edge           node {} (4)
+		edge           node {} (5)
+		edge           node {} (6)
+		edge           node {} (8)
+	(1)	edge  [bend right]         node {} (3)
+        (3)	edge           node {} (9)
+	         edge          node {} (10)
+	         edge          node {} (11)
+        (4)	edge  [bend right]         node {} (13)
+        (5)	edge  [bend left]         node {} (11)
+       		 edge        node {} (6)
+        (7) 	edge 	  node {} (0)
+	        edge [bend left]	  node {} (6)
+        (8) 	edge 	  node {} (12)
+	        edge 	  node {} (13)
+	        edge [bend left]	  node {} (5)
+	 (9) 	edge [bend left]	  node {} (1)
+         (6) 	edge 	  node {} (14)
+         	edge 	  node {} (15)
+	(11) 	edge 	  node {} (0)
+		edge [bend right]	  node {} (16)
+	(16) 	edge node {} (6)
+         ;
+
+\end{tikzpicture}
+\caption{Ein etwas komplexerer Graph}
+\label{fig:bfs:graph2}
+\end{center}
+\end{figure}
+
+\paragraph{}Betrachten Sie nun den Graphen in Abb.\ref{fig:bfs:graph2} und beurteilen Sie, ob man von Knoten 7 den Knoten 16 erreichen kann. Kann man von Knoten 5 den Knoten 1 erreichen?
+
+Wie Sie merken, ist das L\"osen der Aufgabe in einem etwas komplizierteren Graphen schon viel schwieriger. Stellen Sie sich jetzt aber vor, Sie haben einen Graphen mit tausenden von Knoten vor sich. Eine visuelle Beurteilung wird nun fast unm\"oglich und das Problem ist von Hand nicht mehr l\"osbar. Wir m\"ochten also einen Algorithmus entwickeln, damit ein Computer das Problem f\"ur uns l\"osen kann. Wie wir gesehen haben, k\"onnen Graphen mit Hilfe von Matrizen dargestellt werden. Ein Computer kann aber nicht auf eine visuelle Beurteilung zur\"uckgreifen und braucht zus\"atzlich noch Instruktionen, die ihm mitteilen, wie das Problem \"uberhaupt gel\"ost werden kann.
+
+\paragraph{Algorithmus entwickeln:}Wir m\"ochten also einen Algorithmus entwickeln, der f\"ur einen Startknoten in einem Graphen beurteilen kann, ob ein anderer Knoten von diesem Startknoten erreichbar ist oder nicht. Bei der Beantwortung der Frage zu den Graphen in Abb.~\ref{fig:bfs:graph} und ~\ref{fig:bfs:graph2} haben Sie wahrscheinlich intuitiv begonnen, ein paar Wege auszuprobieren und je nachdem wieder zu verwerfen. Damit das Problem von einem Computer gel\"ost werden kann braucht er aber ein klares, strukturierteres Vorgehen, um die Frage nach der Erreichbarkeit zu beantworten.
+
+Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein solches entwickeln \"uberlegen wir uns noch zus\"atzlich, ob wir ausser der Erreichbarkeit sonst noch Informationen haben wollen. Wenn wir herausgefunden haben, dass ein Knoten von einem Startknoten aus erreichbar ist, m\"ochten wir oftmals auch gerne wissen, wie weit entfernt er ist (in Anzahl Kanten, die traversiert werden m\"ussen, um den Knoten zu erreichen). Falls es mehrere Wege zum Knoten gibt sind wir h\"aufig an der k\"urzesten Distanz interessiert. Nicht zuletzt interessiert uns dann auch der konkrete Weg, der vom Startknoten zum Zielknoten f\"uhrt.
+
+\paragraph{K\"urzester Weg:}Im Graphen aus Abb.~\ref{fig:bfs:graph} ist Knoten 4 von Knoten 0 \"uber Knoten 1 und 2 erreichbar, aber auch von Knoten 0 \"uber Knoten 3, 1, und 2. Der erste Weg ist jedoch der K\"urzere.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle, scale=0.45]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                    {$0$};
+  \node[wstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[wstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right,color=blue,thick]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right, color=blue,thick]	node {} (2)       
+        (2) 	edge [color=blue,thick]	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Weg von Knoten 0 zu Knoten 4 \"uber Knoten 1 und 2}
+\label{fig:bfs:graph:pathblue}
+\end{center}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle, scale = 0.45]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                    {$0$};
+  \node[wstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[wstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge    [color=red,thick]       node {} (3)
+        (1) 	edge [bend right, color=red,thick]	node {} (2)       
+        (2) 	edge [color=red,thick]	node {} (4)
+        (3)	 edge    [bend left, color=red,thick]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Weg von Knoten 0 zu Knoten 4 \"uber Knoten 3, 1 und 2}
+\label{fig:bfs:graph:pathred}
+\end{center}
+\end{figure}
+
+\paragraph{Aufgabe:}Wir m\"ochten also ein Vorgehen entwickeln, welches in einem Graphen von einem Startknoten aus einen Knoten auf dem k\"urzesten Weg sucht und uns dar\"uber informiert, ob er vom Startknoten aus erreichbar ist. \"Uberlegen Sie sich, wie so ein Vorgehen aussehen k\"onnte.
+
+Beachten Sie dabei Folgendes: wenn wir beim Startknoten beginnen, m\"ochten wir zuerst alle Knoten absuchen, welche mit minimaler Distanz vom Startknoten aus erreichbar sind. Welche Knoten sind das? Wenn wir in k\"urzester Distanz den gesuchten Knoten nicht gefunden haben m\"ussen wir die n\"achste gr\"ossere Distanz in Kauf nehmen, in der Hoffnung, den Knoten dort zu finden. Wenn wir so vorgehen und den Knoten finden wissen wir n\"ahmlich, dass wir ihn auf dem k\"urzesten m\"oglichen Weg gefunden haben.
+
+\subsection{Algorithmus}
+
+Wie wir schon erw\"ahnt haben gibt es mehrere M\"oglichkeiten f\"ur ein Vorgehen, welches einen Graphen traversiert und nach einem bestimmten Knoten sucht. In diesem Kapitel werden wir einen solchen Algorithmus,  n\"amlich die Breitensuche, Schritt f\"ur Schritt erarbeiten. Die Breitensuche erm\"oglicht es uns n\"amlich einen Knoten zu suchen, und, falls er gefunden wurde, seine k\"urzeste Distanz beziehungsweise auch den konkreten Weg zum Knoten ganz einfach herauszufinden.
+
+Der Algorithmus f\"r die Breitensuche ben\"otigt drei Inputs: einen Graphen, einen Startknoten und einen Zielknoten. In einem ersten Schritt wird der Startknoten betrachtet. Wir haben gesehen, dass vom Startknoten aus direkt all seine Nachbarn erreicht werden k\"onnen. In Abb.~\ref{fig:bfs:bfs1} sehen Sie den Graphen aus Abb.~\ref{fig:bsf:graph}. Wir betrachten Knoten 0 als Startknoten (rot eingef\"arbt). Alle Nachbarn, die von diesem Startknoten aus erreichbar sind, sind grau eingef\"rbt.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[rstate] 		(0)                  {$0$};
+  \node[gstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[gstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Startknoten und seine Nachbarn}
+\label{fig:bfs:bfs1}
+\end{center}
+\end{figure}
+
+
+Wir m\"ochten nun wissen, ob Knoten 2 von diesem Startknoten aus erreichbar ist. Als Erstes pr\"ufen wir also, ob sich der Knoten unter den Nachbarn des Startknotens befindet. Da dies nicht der Fall ist, m\"ussen wir weitersuchen. Da wir mit Distanz 1 den Knoten nicht gefunden haben, m\"ussen wir bei einer gr\"osseren Distanz weitersuchen, also betrachten wir alle Knoten, die mit Distanz 2 vom Startknoten aus erreichbar sind. Dies sind alle Knoten, die von den Nachbarn des Startknotens aus erreichbar sind. Wir w\"hlen also den ersten Nachbarn, Knoten 1, und betrachten dessen Nachbarn. In Abb.~\ref{fig:bfs:bfs2} sehen wir, der Knoten 2 ein Nachbarsknoten von Knoten 1 ist. Nun w\"ahlen wir den 2. Nachbarn unseres Startknotens, Knoten 3, und betrachten dessen Nachbarn. Der einzige Nachbarsknoten von Knoten 3 ist Knoten 1, welchen wir aber gerade eben schon betrachtet haben und deshalb nicht mehr betrachten m\"ussen. Wir m\"ussen uns also irgendwie merken, welche Knoten wir schon betrachtet haben, damit wir sie nicht nochmals bearbeiten wenn wir sp\"ater auf einem anderen Weg nochmals darauf stossen. 
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle, scale=0.45]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                  {$0$};
+  \node[rstate]         (1) [below left of=0] {$1$};
+  \node[gstate]         (2) [below right of=1] {$2$};
+  \node[wstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle,scale=0.45]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(0)                  {$0$};
+  \node[gstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[rstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Aktuelle Knoten und ihre Nachbarn}
+\label{fig:bfs:bfs2}
+\end{center}
+\end{figure}
+
+Wir erreichen dies, indem wir einen betrachteten Knoten schwarz einf\"arben. Gleichzeitig f\"arben wir Knoten, die wir als Nachbarn eines Knoten gesehen haben, aber noch nicht bearbeiten haben, grau ein. Abb ~\ref{fig:bfs:bfs3} zeigt den Graphen, nachdem der Startknoten (Knoten 0) betrachtet wurde (links), nachdem sein erster Nachbar (Knoten 1) betrachtet wurde (rechts) und nachdem sein zweiter Nachbar (Knoten 3) betrachtet wurde.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=circle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[bstate] 		(0)                  {$0$};
+  \node[gstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[gstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=circle,scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[bstate] 		(0)                  {$0$};
+  \node[bstate]         (1) [below left of=0] {$1$};
+  \node[gstate]         (2) [below right of=1] {$2$};
+  \node[gstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=circle,scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[bstate] 		(0)                  {$0$};
+  \node[bstate]         (1) [below left of=0] {$1$};
+  \node[gstate]         (2) [below right of=1] {$2$};
+  \node[bstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+
+\caption{Verlauf der Einf\"arbungen}
+\label{fig:bfs:bfs3}
+\end{center}
+\end{figure}
+
+Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2 betrachtet. Knoten 2 war der gesuchte Knoten - das heisst wir haben den Knoten gefunden!
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick, style=circle]
+  \tikzstyle{zstate}=[fill=white!80!green,text=black!40!green,draw=black!40!green]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[bstate] 		(0)                  {$0$};
+  \node[bstate]         (1) [below left of=0] {$1$};
+  \node[zstate]         (2) [below right of=1] {$2$};
+  \node[bstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+         (5) 	edge [bend left] node {} (4);
+
+\end{tikzpicture}
+\caption{Zielknoten wurde gefunden}
+\label{fig:bfs:bfs4}
+\end{center}
+\end{figure}
+
+
+\paragraph{Zusammenfassung:}Wir m\"ochten nun das Vorgehen zusammenfassen und in einem Algorithmus formulieren.
+
+Wir beginnen mit einem Startknoten und f\"arben ihn sogleich grau ein. Der n\"achste zu betrachtende Knoten ist jeweils der n\"achste graue Knoten. Da anfangs nur den Startknoten grau ist, beginnen wir gleich mit diesem Knoten. Falls der Knoten der gesuchte Knoten ist, haben wir ihn gefunden und k\"onnen das Programm beenden. Andernfalls f\"arben wir alle Nachbarn des Knotens grau ein. Am schluss f\"arben wir den betrachteten Knoten selbst schwarz ein, um zu markieren, dass wir diesen nun bearbeitet haben. Wir fahren fort mit dem grauen Knoten, der als erstes grau gef\"arbt wurde und wiederholen das beschriebene Vorgehen. 
+
+Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in der sie eingef\"arbt werden. Damit stellen wir sicher, dass zuerst alle Knoten von einer kleineren Distanz zum Startknoten bearbeitet werden als die weiter entfernten, da jene auch erst s\"ater eingef\"arbt werden. Man kann sich dies also wie eine Warteschlange vorstellen, in der die grauen Knoten eingereiht werden:  die Knoten die zuerst eingereiht wurden, werden auch zuerst wieder von der Warteschlage entfernt.
+
+\begin{algorithm}
+\caption{Breitensuche}\label{alg:bfs}
+\begin{algorithmic}[1]
+\Procedure{Breitensuche}{$graph,start,ziel$}
+	\State $start$ grau einf\"arben
+   \State $graue Knoten = \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
+      \While{$graueKnoten \neq \emptyset$ }
+   	\State $current \gets$ vorderster Knoten aus $graueKnoten$
+	\If {$current = ziel$} 
+   		\Return true\Comment{Zielknoten gefunden}
+   	\EndIf
+	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+		\If {$nachbar$ nicht schwarz}\Comment{Falls $nachbar$ noch nicht bearbeitet}
+		 	\State $nachbar$ grau einf\"arben
+			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+		\EndIf
+	\EndFor
+	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
+	\State $current$ aus $graueKnoten$ entfernen
+   \EndWhile\label{euclidendwhile}
+   \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Wir werden nun Algorithmus~\ref{alg:bfs} Schritt f\"ur Schritt implementieren. 
+
+\paragraph{Aufgabe:}Auf Zeile~\ref{alg:bfs:line:nachbarn} wird eine Funktion \textsc{Nachbarknoten} f\"ur den aktuellen Knoten aufgerufen. Sie haben gelernt, wie Graphen mit Hilfe von Adjazenzmatrizen dargestellt werden k\"onnen und wie daraus Nachbarn eines Knotens bestimmt werden k\"onnen. Implementieren Sie nun die Funktion \textsc{Nachbarknoten($graph$, $knoten$)}: sie hat als Input einen Graphen und einen Knoten und gibt als Output eine Liste von Nachbarknoten des Knotens im Graphen aus. Testen Sie die Funktion, indem Sie sie mit verschiedenen Knoten aus einem Graphen aufrufen.
+
+\paragraph{Aufgabe:}Benutzen Sie ihre Funktion \textsc{Nachbarknoten} um Algorithmus~\ref{alg:bfs} zu implementieren. Testen Sie Ihr Programm indem sie die Breitensuche f\"ur verschiedene Start- und Endknoten aufrufen. \textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzten, dass sie in einem Array f\"ur jeden Knoten seine Farbe speichern. Farben k\"onnen Sie einfach als Zahlen darstellen (z.B. weiss=0, grau=1, schwarz=2). F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
+
+\subsection{Anwendung und Erweiterung}

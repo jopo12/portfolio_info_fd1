@@ -1,0 +1,115 @@
+\section{Lösungen}
+
+
+%%% Graphs
+
+\begin{lsg}
+\[ G=(V,E) \text{ mit: } V = \{ 0,1,2,3,4 \}; \]
+\[  E = \{(0,1), (0,2), (1,1), (1,2), (2,2), (2,0), (3,1), (3,4), (4,0) \}. \]
+
+\end{lsg}
+
+
+
+\begin{lsg}
+\hfill
+
+
+%\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick, style=circle]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+%  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+%  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[wstate] 		(6)						{$6$};
+  \node[wstate]         (1) [right of=6]		{$1$};
+  \node[wstate]         (2) [right of=1]		{$2$};
+  \node[wstate]         (3) [below of=6]		{$3$};
+  \node[wstate]         (4) [below of=1]		{$4$};
+  \node[wstate]         (5) [right of=4]		{$5$};
+  \node[wstate]         (0) [above right of=5]	{$0$};
+
+  \path (1) edge              node {} (6)
+            edge              node {} (3)
+        (2) edge			  node {} (1)
+%            edge              node {} (2)
+        (3) edge              node {} (4)
+            edge [loop below] node {} (3)
+        (4) edge 			  node {} (2)
+%            edge              node {} (4)
+        (5) edge 			  node {} (4);
+\end{tikzpicture}
+%\caption{Ein weiterer Graph.}
+%\label{fig:kont:graph}
+\end{center}
+%\end{figure}
+\end{lsg}
+
+
+
+\begin{lsg}
+\[A =  \begin{pmatrix}
+  0 & 1 & 1 & 0 & 0  \\
+  0 & 1 & 1 & 0 & 0  \\
+  1 & 0 & 1 & 0 & 0  \\
+  0 & 1 & 0 & 0 & 1  \\
+  1 & 0 & 0 & 0 & 0  \\
+ \end{pmatrix}
+  \]
+\end{lsg}
+
+
+
+\begin{lsg} 
+\hfill
+
+%\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick, style=circle]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+%  \tikzstyle{gstate}=[fill=gray,text=black,draw=black]
+%  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+%  \node[wstate] 		(6)						{$6$};
+  \node[wstate]         (0) [above right of=5]	{$0$};
+  \node[wstate]         (1) [right of=0]		{$1$};
+  \node[wstate]         (2) [right of=1]		{$2$};
+  \node[wstate]         (3) [below of=0]		{$3$};
+  \node[wstate]         (4) [below of=1]		{$4$};
+  \node[wstate]         (5) [right of=4]		{$5$};
+ 
+
+  \path (0) edge [loop above]	node {} (0)
+  			edge 				node {} (1)
+  		(1) edge [bend left]   	node {} (2)
+            edge [bend left]   	node {} (4)
+        (2) edge [bend left]	node {} (1)
+            edge [bend left]   	node {} (5)
+            edge 				node {} (4)
+        (3) edge             	node {} (0)
+%            edge [loop below] 	node {} (3)
+        (4) edge [bend left]  	node {} (1)
+            edge              	node {} (3)
+            edge [loop below]	node {} (4)
+        (5) edge 			  	node {} (4)
+        	edge [bend left]	node {} (2);
+\end{tikzpicture}
+%\caption{Ein weiterer Graph.}
+%\label{fig:kont:graph}
+\end{center}
+%\end{figure}
+\end{lsg}
+
+
+\begin{lsg}
+\[ 3: ~ \{1\}; \quad 1: ~ \{2\}~\text{und sich selber}; \quad 0:~\{1,2\} \]
+\end{lsg}
+
+
+%%% Graphs
+
+
+
