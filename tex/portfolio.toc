@@ -23,5 +23,6 @@
 \contentsline {paragraph}{Zusammenfassung:}{11}{section*.22}
 \contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{12}{subsection.2.2.3}
 \contentsline {paragraph}{Soziale Netzwerke:}{12}{section*.23}
-\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{15}{section.2.3}
-\contentsline {chapter}{\numberline {3}Anhang}{17}{chapter.3}
+\contentsline {subsection}{\numberline {2.2.4}Beispiele}{15}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{16}{section.2.3}
+\contentsline {chapter}{\numberline {3}Anhang}{18}{chapter.3}

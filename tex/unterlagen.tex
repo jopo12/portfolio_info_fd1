@@ -656,12 +656,46 @@ TODO: als Argument \"ubergeben?
 \end{algorithmic}
 \end{algorithm}
 
-
-
 \begin{aufg}
 Erg\"anzen Sie Ihr Programm nun auch so, dass am Schluss der Weg ausgelesen werden kann, der vom Startknoten zum Zielknoten f\"uhrt, falls dieser vom Startknoten aus erreichbar ist.
 \end{aufg}
 
 
+\subsection{Beispiele}
 
+Betrachten Sie den Ausschnitt des ZVV-Netzes in Abb.~\ref{fig:zvv}.
+
+Sie m\"ochten wissen, wie man am schnellsten nur mit Tramfahren von der ETH Z\"urich zum Bahnhof Enge gelangt. Sie nehmen an, dass es immer ungef\"ahr gleich lange von dauert um von einer Tramstation zur n\"achsten zu fahren, aber dass der gr\"osste Teil der Zeit an den Stationen selbst verloren geht, weil immer viele Leute ein- und aussteigen wollen. Sie m\"ochten also einen Weg finden, bei welchem man an m\"oglichst wenigen Tramstationen vorbeifahren muss, damit man m\"oglichst schnell am Ziel ankommt.
+
+\begin{figure}[htb]
+\includegraphics[width=0.97\linewidth]{../fig/zvv.png}
+\caption{Ausschnitt aus dem ZVV Liniennetzplan}
+\label{fig:zvv}
+\end{figure}
+
+\begin{aufg}
+\"Uberlegen Sie sich, wie Sie dieses Problem mit Hilfe von einem Graphen modellieren k\"onnen implementieren Sie den entsprechenden Graphen. Betrachten Sie dabei aussschliesslich Tramlinien und -haltestellen und nur solche, die im Kartenausschnitt komplett sichtbar sind.
+
+Handelt es sich um einen gerichteten oder ungerichteteten Graphen?
+\end{aufg}
+
+\begin{aufg}
+Stellen Sie sich vor, am Bellevue werden Sanierungsarbeiten durchgef\"uhrt und das Bellevue muss temport\"ar f\"ur den Trambetrieb geschlossen werden. Erreichen Sie von der ETH aus dennoch den Bahnhof Enge? Benutzen Sie Ihr Programm, um dies zu \"uberpr\"ufen.
+\end{aufg}
+
+\begin{aufg}
+Wieviele Tramstationen m\"ussen mindestens gefahren werden, um von der ETH aus zum Bahnhof Enge zu gelangen?
+\begin{enumerate}[(a)]
+\item Falls das Bellevue gesperrt ist
+\item Falls das Bellevue wieder ohne Einschr\"ankungen befahrbar ist.
+\end{enumerate}
+\end{aufg}
+
+\begin{aufg}
+Auf welchem Weg kommen Sie am schnellsten von der ETH zum Bahnhof Enge?
+\begin{enumerate}[(a)]
+\item Falls das Bellevue gesperrt ist
+\item Falls das Bellevue wieder ohne Einschr\"ankungen befahrbar ist.
+\end{enumerate}
+\end{aufg}
 
