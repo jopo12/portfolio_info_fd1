@@ -610,14 +610,39 @@ Wir k\"onnen mit unserem Programm jetzt also einfach beurteilen, ob es eine Verb
 \textbf{Hinweis:} Es reicht nicht, die Distanz in einer einzigen Variablen zu Speichern. Wieso nicht?
 \end{aufg}
 
-TODO Algorithmus mit Distanz erarbeiten
+Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Distanz von 1 erreichbar. Da wir bei der Breitensuche immer zuerst alle Knoten einer gewissen Distanz abarbeiten, bevor wir die Distanz erh\"ohen wissen wir, dass wenn wir einen Knoten neu entdecken, dass dieser nicht \"uber irgendeinen Weg schneller erreichbar ist als \"uber den Knoten, von dem aus wir ihn entdeckt haben. Das heisst also, ein Knoten kann mit einer Distanz vom Vorg\"angerknoten + 1 erreicht werden. Da wir in unserem Algorithmus beim Abarbeiten der grauen Knoten nicht mehr wissen, wie weit diese vom Startknoten entfernt sind, k\"onnen wir nicht einfach in einer Variable die Distanz festhalten, auf der wir gerade suchen. Wir k\"onnen aber zu jedem neu entdeckten Knoten seine Distanz speichern, damit wir beim Bearbeiten des Knotens wissen, wie weit entfernt vom Startknoten wir uns befinden. Wenn wir schlussendlich den Zielknoten erreichen, k\"onnen wir ganz einfach seine Distanz auslesen.
+
+\begin{algorithm}
+\caption{Breitensuche}\label{alg:bfs:path}
+\begin{algorithmic}[1]
+\Procedure{Breitensuche}{$graph,start,ziel$}
+	\State $start$ grau einf\"arben
+   	\State $graue Knoten \gets \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
+	\textcolor{red}{\State $distanzen$ = array\lbrack Anzahl Knoten\rbrack}
+      \While{$graueKnoten \neq \emptyset$ }
+   	\State $current \gets$ vorderster Knoten aus $graueKnoten$
+	\If {$current = ziel$} 
+   		\Return true\Comment{Zielknoten gefunden}
+   	\EndIf
+	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+		\If {$nachbar$ nicht schwarz oder grau}\Comment{Neu entdeckter Knoten}
+		 	\State $nachbar$ grau einf\"arben
+			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+			\textcolor{red}{\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$}
+		\EndIf
+	\EndFor
+	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
+	\State $current$ aus $graueKnoten$ entfernen
+   \EndWhile\label{euclidendwhile}
+   \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 
 \begin{aufg}
 Erg\"anzen Sie Ihr Programm so, dass Sie am Schluss die k\"urzeste Distanz von einem Startknoten zu einem Zielknoten ausgelesen werden kann, falls der Zielknoten vom Startknoten aus erreichbar ist.
 \end{aufg}
-
-%Array von Distanzen
-
 
 Wir haben nun also ein Programm, das uns sagen kann, wie weit entfernt ein Startknoten von einem Zielknoten mindestens liegt (falls der Zielknoten \"uberhaupt vom Startknoten aus erreichbar ist). Wir m\"ochten unseren Algorithmus nun noch etwas weiter ausbauen, so dass wir am Schluss, falls wir den Zielknoten gefunden haben, herausfinden k\"onnen, \"uber welche Knoten der k\"urzeste Weg vom Startknoten zum Zielknoten f\"uhrt. Wir m\"ussen uns also w\"ahrend dem Traversieren irgendwie merken, wie wir zu einem aktuellen Knoten gelangt sind. Es ist m\"oglich, dass es mehrere Wege von einem Startknoten zu einem Zielknoten gibt, aber wir sind stets am k\"urzesten Weg interessiert. Das heisst, wir k\"onnen w\"ahrend der Suche, beim Abarbeiten eines Knotens, einfach speichern, von welchem Knoten aus wir zu diesem Knoten gelangt sind. Dann k\"onnen wir vom Schlussknoten aus Knoten f\"ur Knoten zur\"uckverfolgen, auf welchem Weg wir zum Ziel gelangt sind.
 
@@ -627,14 +652,13 @@ In unserem Netzwerk aus Abb.~\ref{bfs:ex:network} ist Tom mit Karin befreundet u
 
 F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir entdecken, mitspeichern, von welchem Knoten aus wir ihn entdeckt haben. In Algorithmus~\ref{alg:bfs:path} sehen Sie diese Erweiterung in den rot markierten Zeilen. 
 
-TODO: als Argument \"ubergeben?
-
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs:path}
 \begin{algorithmic}[1]
 \Procedure{Breitensuche}{$graph,start,ziel$}
 	\State $start$ grau einf\"arben
    	\State $graue Knoten \gets \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
+	\State $distanzen$ = array\lbrack Anzahl Knoten\rbrack
 	\textcolor{red}{\State $vorgaenger$ = array\lbrack Anzahl Knoten\rbrack}
       \While{$graueKnoten \neq \emptyset$ }
    	\State $current \gets$ vorderster Knoten aus $graueKnoten$
@@ -645,6 +669,7 @@ TODO: als Argument \"ubergeben?
 		\If {$nachbar$ nicht schwarz oder grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
 			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+			\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$
 			\textcolor{red}{\State $vorgaenger\lbrack nachbar\rbrack = current$\Comment{Von wo der Knoten entdeckt wurde}}
 		\EndIf
 	\EndFor
