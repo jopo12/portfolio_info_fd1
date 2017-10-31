@@ -108,7 +108,165 @@
 \[ 3: ~ \{1\}; \quad 1: ~ \{2\}~\text{und sich selber}; \quad 0:~\{1,2\} \]
 \end{lsg}
 
+\begin{lsg}
+\textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} erl\"autert.
+\end{lsg}
 
+\begin{lsg}
+
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+\hfill
+def nachbarsknoten(graph, node):
+	n = len(graph[0])
+	neighbors = []
+	for i in range(n):
+		if graph[node][i] == 1:
+			neighbors.append(i)
+	return neighbors
+\end{lstlisting}
+\end{lsg}
+
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+def breitensuche (graph, start, ziel):
+	n = len(graph[0])
+	graueKnoten = [start]
+	farben = ['weiss'] * n
+	farben[start] = 'grau'
+	while graueKnoten != []:
+		current = graueKnoten[0]
+		if current == ziel:
+			print "Distanz: ", distanzen[ziel]
+			return True
+		for nachbar in nachbarsknoten(graph, current):
+			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
+				farben[nachbar] = 'grau'
+				graueKnoten += [nachbar]
+				distanzen[nachbar] = distanzen[current] + 1
+		farben[current] = 'schwarz'
+		graueKnoten = graueKnoten[1:]
+	return False
+\end{lstlisting}
+\end{lsg}
+
+\begin{lsg}
+\[A =  \begin{pmatrix}
+  0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0  \\
+  0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0  \\
+  0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1  \\
+  1 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0  \\
+  1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 1  \\
+  0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 1  \\
+  0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0  \\
+  0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0  \\
+  0 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 0 
+ \end{pmatrix}
+  \]
+\end{lsg}
+
+\begin{lsg}
+Es gibt eine Verbindung: das Programm sollte $True$ zur\"uckgeben.
+\end{lsg}
+
+\begin{lsg}
+Es g\"abe trotzdem noch eine Verbindung zwischen Anna und Jimmy, jedoch nicht zwischen Simon und Tom.
+\end{lsg}
+
+\begin{lsg}
+Wir speichern die Distanz zu jedem Knoten. Das heisst, der Startknoten bekommt die Distanz 0. Jeder weitere Knoten, der vom aktuellen Knoten aus entdeckt wird (und grau gef\"arbt wird) bekommt die Distanz des aktuellen Knotens plus 1.
+\end{lsg}
+
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+def breitensuche (graph, start, ziel):
+	n = len(graph[0])
+	graueKnoten = [start]
+	farben = ['weiss'] * n
+	farben[start] = 'grau'
+	distanzen = [0] * n
+	while graueKnoten != []:
+		current = graueKnoten[0]
+		if current == ziel:
+			print "Distanz", distanzen[ziel]
+			return True
+		for nachbar in nachbarsknoten(graph, current):
+			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
+				farben[nachbar] = 'grau'
+				graueKnoten += [nachbar]
+				distanzen[nachbar] = distanzen[current] + 1
+		farben[current] = 'schwarz'
+		graueKnoten = graueKnoten[1:]
+	return False
+\end{lstlisting}
+\end{lsg}
+
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+def nachbarsknoten(graph, node):
+	n = len(graph[0])
+	neighbors = []
+	for i in range(n):
+		if graph[node][i] == 1:
+			neighbors.append(i)
+	return neighbors
+
+def weg_zum_ziel(vorgaenger, ziel):
+	knoten = ziel
+	weg = [ziel]	
+	while vorgaenger[knoten] != -1:
+		weg = [vorgaenger[knoten]] + weg
+		knoten = vorgaenger[knoten]
+	return weg
+
+def breitensuche (graph, start, ziel):
+	n = len(graph[0])
+	graueKnoten = [start]
+	farben = ['weiss'] * n
+	farben[start] = 'grau'
+	distanzen = [0] * n
+	vorgaenger = [-1] * n
+	while graueKnoten != []:
+		current = graueKnoten[0]
+		if current == ziel:
+			print "Distanz", distanzen[ziel]
+			print "Weg zum Ziel: ", weg_zum_ziel(vorgaenger, ziel)
+			return True
+		for nachbar in nachbarsknoten(graph, current):
+			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
+				farben[nachbar] = 'grau'
+				graueKnoten += [nachbar]
+				distanzen[nachbar] = distanzen[current] + 1
+				vorgaenger[nachbar] = current
+		farben[current] = 'schwarz'
+		graueKnoten = graueKnoten[1:]
+	return False
+\end{lstlisting}
+\end{lsg}
+
+\begin{lsg}
+Die Stationen werden als Knoten abgebildet, die Linien als Kanten. Da im Kartenausschnitt alle Tramlinien in beide Richtungen befahren werden k\"onnen, k\"onnen wir das Problem als ungerichteten Graphen darstellen.
+\end{lsg}
+
+\begin{lsg}
+Der Bahnhof Enge ist von der ETH aus auch erreichbar wenn das Bellevue gesperrt ist.
+\end{lsg}
+
+\begin{lsg}
+\hfill
+\begin{enumerate}[(a)]
+\item 8
+\item 6
+\end{enumerate}\end{lsg}
+
+\begin{lsg}
+\hfill
+\begin{enumerate}[(a)]
+\item ETH - Haldenegg - Central - Bahnhofstr. - Rennweg - Paradeplatz - Stockerstr. - Tunnelstr. - Bahnhof Enge
+\item ETH - Kantonsschule - Kunsthaus - Bellevue - B\"urkliplatz - Rentenanstalt - Bahnhof Enge
+\end{enumerate}\end{lsg}
 %%% Graphs
 
 
