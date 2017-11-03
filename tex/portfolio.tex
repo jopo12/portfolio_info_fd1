@@ -25,6 +25,8 @@
 %\usepackage[latin1]{inputenc}
 \usepackage{verbatim}
 
+\usepackage[numbers,round]{natbib}
+
 %showframe, 
 %\usepackage[showframe, top=1in, bottom=1in, left=1.in, right=1.in]{geometry}
 
@@ -53,6 +55,7 @@
 
 \begin{document}
 \makeatletter\renewcommand{\ALG@name}{Algorithmus}
+\bibliographystyle{alphadin}
 
 \title{
 \textbf{Fachdidaktik Informatik} \\ 
@@ -92,42 +95,12 @@
 \input{solutions.tex}
 
 
-
-
-%\newpage
-%\input{../le1/le1.tex}
-%
-%\newpage
-%\input{../le_planeten/le_planeten.tex}
-%
-%\newpage
-%\input{../le_k1/le_k1.tex}
-%
-%\newpage
-%\input{../le_k2/le_k2.tex}
-%
-%\newpage
-%\input{../le_k3/le_k3.tex}
-%
-%\newpage
-%\input{../le_ff/le_ff.tex}
-%
-%\newpage
-%\input{../le_sl/le_sl.tex}
-%
-
-
-%\chapter{Diskussion}
-
-
-%\input{diskussion.tex}
-
-
-
 \chapter{Anhang}
 
 %\input{anhang.tex}
 
+\addcontentsline{toc}{chapter}{Literatur}
+\bibliography{literatur}
 
 %
 \end{document}
