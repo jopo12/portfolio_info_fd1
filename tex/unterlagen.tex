@@ -391,7 +391,6 @@ Wir beginnen mit einem Startknoten und f\"arben ihn sogleich grau ein. Der n\"ac
 
 Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in der sie eingef\"arbt werden. Damit stellen wir sicher, dass zuerst alle Knoten von einer kleineren Distanz zum Startknoten bearbeitet werden als die weiter entfernten, da jene auch erst s\"ater eingef\"arbt werden. Man kann sich dies also wie eine Warteschlange vorstellen, in der die grauen Knoten eingereiht werden:  die Knoten die zuerst eingereiht wurden, werden auch zuerst wieder von der Warteschlage entfernt.
 
-
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs}
 \begin{algorithmic}[1]
@@ -682,7 +681,7 @@ F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir ent
 \end{algorithm}
 
 \begin{aufg}
-Erg\"anzen Sie Ihr Programm nun auch so, dass am Schluss der Weg ausgelesen werden kann, der vom Startknoten zum Zielknoten f\"uhrt, falls dieser vom Startknoten aus erreichbar ist.
+Erg\"anzen Sie Ihr Programm nun auch so, dass am Schluss der Weg ausgelesen werden kann, der vom Startknoten zum Zielknoten f\"uhrt, falls dieser vom Startknoten aus erreichbar ist. \textbf{Hinweis}: Beachten Sie, dass der Weg zuerst zur\"uckverfolgt wird. Der Weg soll aber in der Reihenfolge vom Startknoten aus ausgegeben werden.
 \end{aufg}
 
 
@@ -724,3 +723,10 @@ Auf welchem Weg kommen Sie am schnellsten von der ETH zum Bahnhof Enge?
 \end{enumerate}
 \end{aufg}
 
+\begin{aufg}
+Beurteilen Sie die Laufzeit des Algorithmus in Bezug auf die Anzahl Knoten und Kanten.
+\end{aufg}
+
+\begin{aufg}
+Beurteilen Sie den Speicherbedarf des Algorithmus in Bezug auf die Anzahl Knoten und Kanten.
+\end{aufg}

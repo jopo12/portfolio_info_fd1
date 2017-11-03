@@ -266,6 +266,15 @@ Der Bahnhof Enge ist von der ETH aus auch erreichbar wenn das Bellevue gesperrt 
 \item ETH - Haldenegg - Central - Bahnhofstr. - Rennweg - Paradeplatz - Stockerstr. - Tunnelstr. - Bahnhof Enge
 \item ETH - Kantonsschule - Kunsthaus - Bellevue - B\"urkliplatz - Rentenanstalt - Bahnhof Enge
 \end{enumerate}\end{lsg}
+
+\begin{lsg}
+Bei der Breitensuche kann es sein, dass der ganze Graph traversiert werden muss, um einen Knoten zu finden bzw. um festzustellen, dass er nicht vorhanden ist. Im schlechtesten Fall m\"ussen also alle Knoten und Kanten besucht werden, womit sich die Laufzeit der Breitensuche konzeptionell mit $\mathcal{O}(|V| + |E|)$ beschreiben l\"asst. In unserer Implementation m\"ussen wir jedoch um die Nachbarn eines Knotens zu finden in der Adjazenzmatrix alle anderen Knoten auf eine Verbindung \"uberpr\"ufen, was zu einer Laufzeit von $\mathcal{O}(|V|^2)$ f\"uhrt.
+\end{lsg}
+
+\begin{lsg}
+Da wir Informationen zu allen Knoten speichern (wie zum Beispiel die Farbe, die Distanz, der Vorg\"angerknoten) bel\"auft sich der Speicherbedarf f\"ur die Breitensuche auf  $\mathcal{O}(|V|)$. Zus\"atzlich dazu braucht das Speichern des Graphen mit einer Adjazenzmatrix $\mathcal{O}(|V|^2)$ Speicherplatz.
+\end{lsg}
+
 %%% Graphs
 
 
