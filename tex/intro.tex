@@ -12,7 +12,7 @@ Die Objekte werden dabei \textbf{Knoten} des Graphen genannt.
 Die paarweisen Verbindungen zwischen Knoten heissen \textbf{Kanten}. 
 Die Kanten können \textbf{gerichtet} oder \textbf{ungerichtet} sein, wenn die Verbindungen zwischen den Knoten, eine Richtung beinhalten (oder nicht).
 
-Am einfachsten kann man Graphen zeichen, indem Knoten durch Punkte und die Kanten durch Linien (oder Pfeile) darstellt. 
+Am einfachsten kann man Graphen zeichen, indem Knoten durch Punkte und die Kanten durch Linien (ungerichtet) oder durch Pfeile im gerichteten Fall darstellt. 
 
 \begin{mbsp}
 %\paragraph{Beispiel:}
@@ -61,14 +61,14 @@ Die Anzahl Knoten wird mit $|V|$ und die Anzahl Kanten mit $|E|$ bezeichnet.
 
 \begin{mdef}
 %\paragraph{Ungerichteter Graph:}
-Jede Kante eines \textbf{ungerichteten Graphen} $e$ besteht aus zwei Knoten $v_1$ und $v_2$ und wird selbst als Menge dargestellt: $e= \{v_1;v_2\}$.
-Die Reihenfolge spielt dabei keine Rolle.
+Jede Kante eines \textbf{ungerichteten Graphen} $e$ besteht aus zwei Knoten $v_1$ und $v_2$ und wird selbst als Menge dargestellt: $e= \{v_1,v_2\}$.
+Die Reihenfolge spielt dabei keine Rolle: $\{v_1,v_2\} = \{v_2,v_1\}$.
 \end{mdef}
 
 \begin{mdef}
 %\paragraph{Gerichteter Graph:}
-Jede Kante eines \textbf{gerichteten Graphen} $e$ besteht aus einem Startknoten $v_1$ und einem Zielknoten $v_2$ und wird selbst als 2-Tupel dargestellt: $e= (v_1;v_2)$. 
-Hierbei spielt die Reihenfolge ein Rolle.
+Jede Kante eines \textbf{gerichteten Graphen} $e$ besteht aus einem Startknoten $v_1$ und einem Zielknoten $v_2$ und wird selbst als 2-Tupel dargestellt: $e= (v_1,v_2)$. 
+Hierbei spielt die Reihenfolge ein Rolle: $(v_1,v_2) \neq (v_2,v_1)$. 
 \end{mdef}
 
 
@@ -153,10 +153,10 @@ Die Abblidung~\ref{fig:bsp:ugraph} zeigt einen ungerichteten Graph mit 5 Knoten 
 Die mathematische Darstellung der zwei Graphen lautet:
 
 \[ \text{Graph links:} \quad G_l = (V_l, E_l); \quad V_l = \{0,1,2,3,4\}; \] 
-\[\quad E_l =  \{ \{1,2\},\{1,0\},\{2,0\},\{2,4\},\{2,3\}, \{3,4\}, \{4,0\} \}  \]
+\[\quad E_l =  \{ \{1,2\},\{1,0\},\{2,0\},\{2,4\},\{2,3\}, \{3,4\}, \{4,0\}. \}  \]
 
 \[ \text{Graph rechts:} \quad G_r = (V_r, E_r); \quad V_r = \{0,1,2,3,4,5\}; \] 
-\[\quad E_r =  \{ (1,2),(1,4), (2,5), (3,5), (3,0), (4,2), (5,4), (0,0)\}  \]
+\[\quad E_r =  \{ (1,2),(1,4), (2,5), (3,5), (3,0), (4,2), (5,4), (0,0)\}.  \]
 
 \begin{aufg}
 %\paragraph{Aufgabe:}
@@ -199,7 +199,7 @@ Bilden Sie für folgenden Graph (Abb.~\ref{fig:auf:graph}) die entsprechende mat
 Zeichnen Sie den entsprechenden Graph, der zu folgender Mathematischen Darstellung gehört:
 
 \[ \quad G = (V, E); \quad V = \{0,1,2,3,4,5,6\}; \] 
-\[\quad E =  \{ (1,3),(1,6), (2,1), (3,3), (3,4), (4,2), (5,4), (6,3)\} \]
+\[\quad E =  \{ (1,3),(1,6), (2,1), (3,3), (3,4), (4,2), (5,4), (6,3)\}. \]
 
 \end{aufg}
 
@@ -212,9 +212,11 @@ So bildet die \textbf{Adjazenzmatrix-Darstellung} des Graphen $G$ eine $|V| \tim
 \[ a_{ij} = 
   \begin{cases}
     1   & \quad \text{falls } (i,j) \in E, \\
-   0   & \quad \text{sonst }.
-  \end{cases}
+   0   & \quad \text{sonst}
+  \end{cases}.
 \]
+
+Für ungerichtete Graphen ersetzt man $(i,j) \text{ durch } \{i,j\}$.
 \end{mdef}
 
 \begin{mbsp}
@@ -227,7 +229,7 @@ Die Adjazenz-Matrizen ($A_l$ und $A_r$) zu den zwei Graphen in Abb.~\ref{fig:bsp
   0 & 1 & 0 & 1 & 0  \\
   0 & 1 & 1 & 0 & 1 \\
   1 & 1 & 0 & 1 & 0 \\
- \end{pmatrix}
+ \end{pmatrix};
 \quad
 A_r =  \begin{pmatrix}
   0 & 1 & 0 & 1 & 0 & 0 \\
@@ -236,7 +238,7 @@ A_r =  \begin{pmatrix}
   0 & 1 & 0 & 0 & 0 & 0 \\
   0 & 0 & 0 & 1 & 0 & 0 \\
   0 & 0 & 0 & 0 & 0 & 1 \\
- \end{pmatrix}
+ \end{pmatrix}.
   \]
 \end{mbsp}
 
@@ -259,23 +261,23 @@ Zeichnen Sie zu folgender Adjazenzmatrix den entsprechenden Graphen.
   1 & 0 & 0 & 0 & 0 & 0 \\
   0 & 1 & 0 & 1 & 1 & 0 \\
   0 & 0 & 1 & 0 & 1 & 0 \\
- \end{pmatrix}
+ \end{pmatrix}.
   \]
   
 \end{aufg}
 
-\begin{prog}
+\begin{aufg}
 %\paragraph{Programmierung:}
 Damit man einen Graphen in einer Textdatei speichern und lesen kann, benutzt man häufig ';' (Semicolon) um die Zahlen einer Zeile zu trennen. 
 Mit einem Absatz wird eine neue Zeile der Matrix bestimmt. 
-Schreiben Sie ein Programm, dass die Adjazenzliste eines Graphen auf den Bildschirm ausgibt ($print$).
+Schreiben Sie ein Programm \textsc{NicePrint($graph$)}, dass die Adjazenzliste eines Graphen auf den Bildschirm ausgibt.
 Benutzen Sie dafür das vorgegebene Programm, welches Graphen aus einer Textdatei einlesen kann und überprüfen Sie die Ausgabe mit den Textdateien.
-\end{prog}
+\end{aufg}
 
 
 \begin{mdef}
 %\paragraph{Nachbarn:} 
-Zwei Vertices sind zu \textbf{benachbart}, wenn eine direkte Verbindung durch eine Kante besteht. 
+Zwei Vertices sind zueinander \textbf{benachbart}, wenn eine direkte Verbindung durch eine Kante besteht. 
 In einem ungerichteten Graphen sind immer beide Vertices benachbart. 
 Hingegen spielt in einem gerichteten spielt die Richtung der Kante eine Rolle, so dass die Nachbarschaft nur in eine Richtung gelten kann.
 \end{mdef}
@@ -295,16 +297,16 @@ Welche Nachbarn hat der Knoten 3, der Knoten 1 und der Knoten 0 des Graphen in A
 \end{aufg}
 
 
-\begin{prog}
+\begin{aufg}
 %\paragraph{Programmierung:}
 Implementieren Sie eine Funktion \textsc{Nachbarknoten($graph$, $knoten$)}: Sie hat als Input einen Graphen und einen Knoten und gibt als Output eine Liste von Nachbarknoten des Knotens im Graphen aus. Testen Sie die Funktion, indem Sie sie mit verschiedenen Knoten aus einem Graphen aufrufen.
-\end{prog}
+\end{aufg}
 
 \subsection{Zusammenfassung und Kontrollaufgaben}
 
 In diesem Kapitel haben Sie die Darstellung von Graphen wiederholt. 
 Insbesondere haben Sie verschiedene Darstellung der Graphen kennen gelernt: Zeichnung, Menge von Kanten und Knoten und Adjazenzmatrix.
-Zusätzlich kennen Sie den unterschied zwischen gerichteten und ungerichteten Graphen und können die Nachbarn eines Knoten in einem Graphen bestimmen. 
+Zusätzlich kennen Sie den Unterschied zwischen gerichteten und ungerichteten Graphen und können die Nachbarn eines Knoten in einem Graphen bestimmen. 
 
 
 %\subsection{Kontrollaufgaben}
@@ -361,7 +363,7 @@ Betrachten Sie folgenden Graphen (s. Abb.~\ref{fig:kont:graph}) und bestimmen Si
 Betrachten Sie folgende Knoten- und Kantenmenge. Zeichnen Sie den dazugehörigen Graphen und Bestimmen Sie die dazugehörige Adjazenzmatrix.
 
 \[ \quad G = (V, E); \quad V = \{2,3,4,5,6,7,9\}; \] 
-\[\quad E =  \{ \{7,3\},\{9,6\}, \{2,6\}, \{3,2\}, \{3,4\}, \{4,2\}, \{5,4\}, \{7,9\}\} \]
+\[\quad E =  \{ \{7,3\},\{9,6\}, \{2,6\}, \{3,2\}, \{3,4\}, \{4,2\}, \{5,4\}, \{7,9\}\}. \]
 
 \end{kontr}
 

@@ -103,15 +103,52 @@
 %\end{figure}
 \end{lsg}
 
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+def nice_print(graph):
+	n = len(graph[0])
+	for i in range(n):
+		for j in range(n-1):
+			print graph[i][j], ";"
+		print graph[i][n-1], "\n"
+\end{lstlisting}
+\end{lsg}
+
+
+
 
 \begin{lsg}
 \[ 3: ~ \{1\}; \quad 1: ~ \{2\}~\text{und sich selber}; \quad 0:~\{1,2\} \]
 \end{lsg}
 
+
+
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
+def nachbarsknoten(graph, node):
+	n = len(graph[0])
+	neighbors = []
+	for i in range(n):
+		if graph[node][i] == 1:
+			neighbors.append(i)
+	return neighbors
+\end{lstlisting}
+\end{lsg}
+
+
+%%%% ENDE INTRO
+
+%%% BEGINN BREITENSUCHE
+
+
 \begin{lsg}
 \textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} erl\"autert.
 \end{lsg}
 
+
+%TODO die Aufgabe habe ich jetzt im ersten Kapitel mit Lösung.
 \begin{lsg}
 \hfill
 \begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
