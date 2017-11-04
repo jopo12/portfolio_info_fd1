@@ -10,9 +10,9 @@ Ein Graph ist eine abstrakte Struktur, die eine Menge von Objekten zusammen mit 
 
 Die Objekte werden dabei \textbf{Knoten} des Graphen genannt. 
 Die paarweisen Verbindungen zwischen Knoten heissen \textbf{Kanten}. 
-Die Kanten können \textbf{gerichtet} oder \textbf{ungerichtet} sein, wenn die Verbindungen zwischen den Knoten, eine Richtung beinhalten (oder nicht).
+Die Kanten können \textbf{gerichtet} oder \textbf{ungerichtet} sein, wenn die Verbindungen zwischen den Knoten eine Richtung beinhalten (oder nicht).
 
-Am einfachsten kann man Graphen zeichen, indem Knoten durch Punkte und die Kanten durch Linien (ungerichtet) oder durch Pfeile im gerichteten Fall darstellt. 
+Am einfachsten kann man Graphen zeichen, indem man Knoten durch Punkte und die Kanten durch Linien (ungerichtet) oder durch Pfeile im gerichteten Fall darstellt. 
 
 \begin{mbsp}
 %\paragraph{Beispiel:}
@@ -53,7 +53,7 @@ Jede Station bildet dabei einen Knoten und die Verbindung zwischen den Knoten is
 
 \begin{mdef}
 %\paragraph{Graph:}
-Mathematisch besteht ein \textbf{Graph} $G$ aus einer \textbf{Menge} von \textbf{Knoten} $V$ (engl. \emph{vertex}) und einer \textbf{Menge} von \textbf{Kanten} $E$ (engl. \emph{Edge}).
+Mathematisch besteht ein \textbf{Graph} $G$ aus einer \textbf{Menge} von \textbf{Knoten} $V$ (engl. \emph{vertex}) und einer \textbf{Menge} von \textbf{Kanten} $E$ (engl. \emph{edge}).
 Die Anzahl Knoten wird mit $|V|$ und die Anzahl Kanten mit $|E|$ bezeichnet.
 \end{mdef}
 
@@ -74,7 +74,7 @@ Hierbei spielt die Reihenfolge ein Rolle: $(v_1,v_2) \neq (v_2,v_1)$.
 
 \begin{mbsp}
 %\paragraph{Beispiele:}
-Die Abblidung~\ref{fig:bsp:ugraph} zeigt einen ungerichteten Graph mit 5 Knoten und einen gerichteten Graphen mit 6 Knoten. 
+Die Abblidung~\ref{fig:bsp:ugraph} zeigt einen ungerichteten Graphen mit 5 Knoten und einen gerichteten Graphen mit 6 Knoten. 
 \end{mbsp}
 
 \begin{figure}[htb]
@@ -114,7 +114,7 @@ Die Abblidung~\ref{fig:bsp:ugraph} zeigt einen ungerichteten Graph mit 5 Knoten 
   \node[wstate]         (2) [right of=1]		{$2$};
   \node[wstate]         (3) [right of=2]		{$3$};
   \node[wstate]         (4) [below of=1]		{$4$};
-  \node[wstate]         (5) [right of=4]		{$2$};
+  \node[wstate]         (5) [right of=4]		{$5$};
   \node[wstate] 		(0) [right of=5]		{$0$};
 
   \path (0) edge	[loop right]	node {} (0)
@@ -225,19 +225,19 @@ Die Adjazenz-Matrizen ($A_l$ und $A_r$) zu den zwei Graphen in Abb.~\ref{fig:bsp
 
 \[ A_l =  \begin{pmatrix}
   0 & 1 & 0 & 0 & 1 \\
-  1 & 0 & 1 & 1 & 1 \\
-  0 & 1 & 0 & 1 & 0  \\
-  0 & 1 & 1 & 0 & 1 \\
-  1 & 1 & 0 & 1 & 0 \\
+  1 & 0 & 1 & 0 & 0 \\
+  1 & 1 & 0 & 1 & 1  \\
+  0 & 0 & 1 & 0 & 1 \\
+  1 & 0 & 1 & 1 & 0 \\
  \end{pmatrix};
 \quad
 A_r =  \begin{pmatrix}
-  0 & 1 & 0 & 1 & 0 & 0 \\
-  0 & 0 & 0 & 0 & 1 & 0 \\
-  0 & 0 & 0 & 0 & 1 & 1 \\
-  0 & 1 & 0 & 0 & 0 & 0 \\
-  0 & 0 & 0 & 1 & 0 & 0 \\
+  1 & 0 & 0 & 0 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 1 & 0 \\
   0 & 0 & 0 & 0 & 0 & 1 \\
+  1 & 0 & 0 & 0 & 0 & 1 \\
+  0 & 0 & 1 & 0 & 0 & 0 \\
+  0 & 0 & 0 & 0 & 1 & 0 \\
  \end{pmatrix}.
   \]
 \end{mbsp}
@@ -270,7 +270,7 @@ Zeichnen Sie zu folgender Adjazenzmatrix den entsprechenden Graphen.
 %\paragraph{Programmierung:}
 Damit man einen Graphen in einer Textdatei speichern und lesen kann, benutzt man häufig ';' (Semicolon) um die Zahlen einer Zeile zu trennen. 
 Mit einem Absatz wird eine neue Zeile der Matrix bestimmt. 
-Schreiben Sie ein Programm \textsc{NicePrint($graph$)}, dass die Adjazenzliste eines Graphen auf den Bildschirm ausgibt.
+Schreiben Sie ein Programm \textsc{NicePrint($graph$)}, das die Adjazenzliste eines Graphen auf den Bildschirm ausgibt.
 Benutzen Sie dafür das vorgegebene Programm, welches Graphen aus einer Textdatei einlesen kann und überprüfen Sie die Ausgabe mit den Textdateien.
 \end{aufg}
 
@@ -279,13 +279,13 @@ Benutzen Sie dafür das vorgegebene Programm, welches Graphen aus einer Textdate
 %\paragraph{Nachbarn:} 
 Zwei Vertices sind zueinander \textbf{benachbart}, wenn eine direkte Verbindung durch eine Kante besteht. 
 In einem ungerichteten Graphen sind immer beide Vertices benachbart. 
-Hingegen spielt in einem gerichteten spielt die Richtung der Kante eine Rolle, so dass die Nachbarschaft nur in eine Richtung gelten kann.
+Hingegen spielt in einem gerichteten Graphen die Richtung der Kante eine Rolle, so dass die Nachbarschaft nur in eine Richtung gelten kann.
 \end{mdef}
 
 \begin{mbsp}
 %\paragraph{Beispiel:}
-Im Graphen der Abbildung~\ref{fig:bsp:ugraph} links hat der Knoten 2 die Nachbarn 1,5,4 und 3. 
-Dies kann man auch aus der Adjazenzmatrix $A_l$ ablesen: Die zweite Reihe hat dort bei den Spalten 1,3,4 und 5 eine eins stehen.
+Im Graphen der Abbildung~\ref{fig:bsp:ugraph} links hat der Knoten 2 die Nachbarn 1,0,4 und 3. 
+Dies kann man auch aus der Adjazenzmatrix $A_l$ ablesen: Die zweite Reihe hat dort bei den Spalten f\"ur Knoten 1,3,4 und 0 eine eins stehen.
 
 Im Gegensatz dazu hat der Knoten 2 im Graphen der Abbildung~\ref{fig:bsp:ugraph} rechts nur den Nachbarknoten 5. 
 Auch dies kann man wieder aus der zweiten Reihe der Adjazenzmatrix $A_r$ ablesen.
@@ -305,7 +305,7 @@ Implementieren Sie eine Funktion \textsc{Nachbarknoten($graph$, $knoten$)}: Sie 
 \subsection{Zusammenfassung und Kontrollaufgaben}
 
 In diesem Kapitel haben Sie die Darstellung von Graphen wiederholt. 
-Insbesondere haben Sie verschiedene Darstellung der Graphen kennen gelernt: Zeichnung, Menge von Kanten und Knoten und Adjazenzmatrix.
+Insbesondere haben Sie verschiedene Darstellungen der Graphen kennen gelernt: Zeichnung, Menge von Kanten und Knoten und Adjazenzmatrix.
 Zusätzlich kennen Sie den Unterschied zwischen gerichteten und ungerichteten Graphen und können die Nachbarn eines Knoten in einem Graphen bestimmen. 
 
 
@@ -325,7 +325,7 @@ Handelt es sich dabei um gerichtete oder ungerichtete Graphen?
 
 
 \begin{kontr}
-Betrachten Sie folgenden Graphen (s. Abb.~\ref{fig:kont:graph}) und bestimmen Sie seine Knoten und Kanten Menge und bestimmen Sie zusätzlich die Adjazenzmatrix.
+Betrachten Sie folgenden Graphen (s. Abb.~\ref{fig:kont:graph}) und bestimmen Sie seine Knoten- und Kantemenge und bestimmen Sie zusätzlich die Adjazenzmatrix.
 
 \begin{figure}[htb]
 \begin{center}
@@ -360,7 +360,7 @@ Betrachten Sie folgenden Graphen (s. Abb.~\ref{fig:kont:graph}) und bestimmen Si
 \end{kontr}
 
 \begin{kontr}
-Betrachten Sie folgende Knoten- und Kantenmenge. Zeichnen Sie den dazugehörigen Graphen und Bestimmen Sie die dazugehörige Adjazenzmatrix.
+Betrachten Sie folgende Knoten- und Kantenmenge. Zeichnen Sie den dazugehörigen Graphen und bestimmen Sie die dazugehörige Adjazenzmatrix.
 
 \[ \quad G = (V, E); \quad V = \{2,3,4,5,6,7,9\}; \] 
 \[\quad E =  \{ \{7,3\},\{9,6\}, \{2,6\}, \{3,2\}, \{3,4\}, \{4,2\}, \{5,4\}, \{7,9\}\}. \]

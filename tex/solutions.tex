@@ -147,21 +147,6 @@ def nachbarsknoten(graph, node):
 \textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} erl\"autert.
 \end{lsg}
 
-
-%TODO die Aufgabe habe ich jetzt im ersten Kapitel mit Lösung.
-\begin{lsg}
-\hfill
-\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
-def nachbarsknoten(graph, node):
-	n = len(graph[0])
-	neighbors = []
-	for i in range(n):
-		if graph[node][i] == 1:
-			neighbors.append(i)
-	return neighbors
-\end{lstlisting}
-\end{lsg}
-
 \begin{lsg}
 \hfill
 \begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]

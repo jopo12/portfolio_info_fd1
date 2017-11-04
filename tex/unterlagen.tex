@@ -416,18 +416,10 @@ Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in 
 \end{algorithmic}
 \end{algorithm}
 
-Wir werden nun Algorithmus~\ref{alg:bfs} Schritt f\"ur Schritt implementieren. 
-
-
-%TODO ich habe auch eine solche Aufgabe im ersten Kapitel..
 \begin{aufg}
-Auf Zeile~\ref{alg:bfs:line:nachbarn} wird eine Funktion \textsc{Nachbarknoten} f\"ur den aktuellen Knoten aufgerufen. Sie haben gelernt, wie Graphen mit Hilfe von Adjazenzmatrizen dargestellt werden k\"onnen und wie daraus Nachbarn eines Knotens bestimmt werden k\"onnen. Implementieren Sie nun die Funktion \textsc{Nachbarknoten($graph$, $knoten$)}: sie hat als Input einen Graphen und einen Knoten und gibt als Output eine Liste von Nachbarknoten des Knotens im Graphen aus. Testen Sie die Funktion, indem Sie sie mit verschiedenen Knoten aus einem Graphen aufrufen.
-\end{aufg}
+Benutzen Sie ihre Funktion \textsc{Nachbarknoten}, welche Sie bereits im vorhergehenden Kapitel geschrieben haben, um Algorithmus~\ref{alg:bfs} zu implementieren. Testen Sie Ihr Programm indem sie die Breitensuche f\"ur verschiedene Start- und Endknoten aufrufen.
 
-\begin{aufg}
-Benutzen Sie ihre Funktion \textsc{Nachbarknoten} um Algorithmus~\ref{alg:bfs} zu implementieren. Testen Sie Ihr Programm indem sie die Breitensuche f\"ur verschiedene Start- und Endknoten aufrufen.
-
-\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzten, dass sie in einem Array f\"ur jeden Knoten seine Farbe speichern. Farben k\"onnen Sie einfach als Zahlen darstellen (z.B. weiss=0, grau=1, schwarz=2). F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
+\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzen, dass sie in einem Array f\"ur jeden Knoten seine Farbe speichern. Farben k\"onnen Sie einfach als Zahlen darstellen (z.B. weiss=0, grau=1, schwarz=2). F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
 \end{aufg}
 
 \subsection{Anwendung und Erweiterung}

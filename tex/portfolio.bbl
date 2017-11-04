@@ -14,4 +14,10 @@
 \newblock Oldenbourg Wissensch.Vlg, 2004. --
 \newblock ISBN 3486275151
 
+\bibitem[OW12]{ottmann}
+\textsc{Ottmann}, T. ; \textsc{Widmayer}, P.:
+\newblock \emph{Algorithmen und Datenstrukturen}.
+\newblock Spektrum Akademischer Verlag Heidelberg 2012, 2012. --
+\newblock ISBN 978--3--8274--2803--5
+
 \end{thebibliography}
