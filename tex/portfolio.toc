@@ -19,16 +19,15 @@
 \contentsline {section}{\numberline {2.2}Breitensuche}{13}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}Einf\"uhrung}{13}{subsection.2.2.1}
 \contentsline {paragraph}{Modellierung mit Graphen:}{13}{section*.15}
-\contentsline {paragraph}{Graphenalgorithmus:}{14}{section*.16}
-\contentsline {paragraph}{Traversieren:}{14}{section*.17}
-\contentsline {paragraph}{Erreichbarkeit:}{14}{section*.19}
-\contentsline {paragraph}{}{15}{section*.21}
-\contentsline {paragraph}{Algorithmus entwickeln:}{15}{section*.22}
-\contentsline {paragraph}{K\"urzester Weg:}{15}{section*.23}
+\contentsline {paragraph}{Traversieren eines Graphen:}{13}{section*.16}
+\contentsline {paragraph}{Erreichbarkeit:}{14}{section*.18}
+\contentsline {paragraph}{}{14}{section*.20}
+\contentsline {paragraph}{Algorithmus entwickeln:}{15}{section*.21}
+\contentsline {paragraph}{K\"urzester Weg:}{15}{section*.22}
 \contentsline {subsection}{\numberline {2.2.2}Algorithmus}{16}{subsection.2.2.2}
-\contentsline {paragraph}{Zusammenfassung:}{17}{section*.30}
-\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{19}{subsection.2.2.3}
-\contentsline {paragraph}{Soziale Netzwerke:}{19}{section*.31}
-\contentsline {subsection}{\numberline {2.2.4}Beispiele}{21}{subsection.2.2.4}
+\contentsline {paragraph}{Zusammenfassung:}{17}{section*.29}
+\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{18}{subsection.2.2.3}
+\contentsline {paragraph}{Soziale Netzwerke:}{18}{section*.30}
+\contentsline {subsection}{\numberline {2.2.4}Beispiele}{22}{subsection.2.2.4}
 \contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{23}{section.2.3}
 \contentsline {chapter}{Literatur}{27}{lsg.2.22}

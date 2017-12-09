@@ -2,13 +2,9 @@
 %https://www.iro.umontreal.ca/~hahn/IFT3545/GTWA.pdf
 \subsection{Einf\"uhrung}
 
-\paragraph{Modellierung mit Graphen:}Viele Probleme heutzutage k\"onnen mit einem Graphen modelliert und mit Hilfe entsprechender Graphenalgorithmen gel\"ost werden.  
+\paragraph{Modellierung mit Graphen:} Wir haben gesehen dass ein Graph aus Knoten und Kanten besteht, wobei eine Kante jeweils zwei Knoten verbindet. Viele Probleme aus unserem Alltag k\"onnen mit diesen Grundelementen repr\"asentiert werden. Zum Beispiel kann man das Netz des \"offentlichen Verkehrs als Graphen darstellen, indem man alle Stationen als Knoten abbildet, und die Linien, die die Stationen verbinden, als gerichtete Kanten im Graphen, je nachdem in welche Richtung die Verkehrsmittel von der einen Station zur n\"achsten fahren k\"onnen.
 
-Wir haben gesehen dass ein Graph aus Knoten und Kanten besteht, wobei eine Kante jeweils zwei Knoten verbindet. Viele Probleme aus unserem Alltag k\"onnen mit diesen Grundelementen repr\"asentiert werden. Zum Beispiel kann man das Netz des \"offentlichen Verkehrs als Graphen darstellen, indem man alle Stationen als Knoten abbildet, und die Linien, die die Stationen verbinden, als gerichtete Kanten im Graphen, je nachdem in welche Richtung die Verkehrsmittel von der einen Station zur n\"achsten fahren k\"onnen.
-
-\paragraph{Graphenalgorithmus:}Ein konkretes Problem kann also mit Hilfe von einem Graphen abstrahiert werden. Ein Graphenalgorithmus kann auf einem Graphen angewendet werden, und das Resultat kann wieder auf das urspr\"ungliche, konkrete Problem \"ubertragen werden. Durch diese Abstraktion kann also der gleiche Graphenalgorithmus eine Menge von verschiedenen konkreten Problemen l\"osen.
-
-\paragraph{Traversieren:}Es gibt viele verschiedene Algorithmen f\"ur Graphen, und eine wichtige Klasse von Algorithmen ist das Durchsuchen bzw. Traversieren von Graphen. Beim Traversieren von einem Graphen werden die Knoten des Graphen besucht, und man bewegt sich dabei entlang den Kanten. Der Graph kann auch traversiert werden, um einen bestimmten Knoten im Graphen zu suchen.
+\paragraph{Traversieren eines Graphen:}Es gibt viele verschiedene Algorithmen f\"ur Graphen, und eine wichtige Klasse von Algorithmen ist das Durchsuchen bzw. Traversieren von Graphen. Beim Traversieren eines Graphen werden die Knoten des Graphen besucht, und man bewegt sich dabei entlang den Kanten. Der Graph kann auch traversiert werden, um einen bestimmten Knoten im Graphen zu suchen.
 
 \begin{figure}[htb]
 \begin{center}
@@ -34,7 +30,7 @@ Wir haben gesehen dass ein Graph aus Knoten und Kanten besteht, wobei eine Kante
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\caption{Ein Beispiels-Graph}
+\caption{Ein Beispiel-Graph}
 \label{fig:bfs:graph}
 \end{center}
 \end{figure}
@@ -104,11 +100,11 @@ Um diese Fragen zu beantworten haben Sie vermutlich automatisch den Graphen betr
 
 \paragraph{}Betrachten Sie nun den Graphen in Abb.\ref{fig:bfs:graph2} und beurteilen Sie, ob man von Knoten 7 den Knoten 16 erreichen kann. Kann man von Knoten 5 den Knoten 1 erreichen?
 
-Wie Sie merken, ist das L\"osen der Aufgabe in einem etwas komplizierteren Graphen schon viel schwieriger. Stellen Sie sich jetzt aber vor, Sie haben einen Graphen mit tausenden von Knoten vor sich. Eine visuelle Beurteilung wird nun fast unm\"oglich und das Problem ist von Hand nicht mehr l\"osbar. Wir m\"ochten also einen Algorithmus entwickeln, damit ein Computer das Problem f\"ur uns l\"osen kann. Ein Computer kann aber nicht auf eine visuelle Beurteilung zur\"uckgreifen und braucht, neben der Repr\"asentation des Graphen z.B. mit einer Adjazenzmatrix,  zus\"atzlich noch Instruktionen, die ihm mitteilen, wie das Problem \"uberhaupt gel\"ost werden kann.
+Wie Sie merken, ist das L\"osen der Aufgabe in einem etwas komplizierteren Graphen schon viel schwieriger. Stellen Sie sich jetzt aber vor, Sie haben einen Graphen mit tausenden von Knoten vor sich. Eine visuelle Beurteilung wird nun fast unm\"oglich und das Problem ist von Hand nicht mehr l\"osbar. Wir m\"ochten also einen Algorithmus entwickeln, damit ein Computer das Problem f\"ur uns l\"osen kann. Ein Computer kann aber nicht auf eine visuelle Beurteilung zur\"uckgreifen. Er braucht eine Repr\"asentation des Graphen, z.B. eine Adjazenzmatrix, mit welcher er arbeiten kann. Mit Hilfe der Adjazenzmatrix kann er dann jeweils f\"ur einen Knoten seine Nachbarsknoten ``sehen''. Um nun gewisse Probleme zu l\"osen braucht er zus\"atzlich zur Repr\"sentation als Adjazenzmatrix auch noch Instruktionen, die ihm mitteilen, wie das Problem \"uberhaupt gel\"ost werden kann.
 
-\paragraph{Algorithmus entwickeln:}Wir m\"ochten also einen Algorithmus entwickeln, der f\"ur einen Startknoten in einem Graphen beurteilen kann, ob ein anderer Knoten von diesem Startknoten erreichbar ist oder nicht. Bei der Beantwortung der Frage zu den Graphen in Abb.~\ref{fig:bfs:graph} und ~\ref{fig:bfs:graph2} haben Sie wahrscheinlich intuitiv begonnen, ein paar Wege auszuprobieren und je nachdem wieder zu verwerfen. Damit das Problem von einem Computer gel\"ost werden kann braucht er aber ein klares, strukturierteres Vorgehen, um die Frage nach der Erreichbarkeit zu beantworten.
+\paragraph{Algorithmus entwickeln:}Wir m\"ochten also einen Algorithmus entwickeln, der f\"ur einen Startknoten $s$ in einem Graphen beurteilen kann, ob ein anderer Knoten von $s$ aus erreichbar ist oder nicht. Bei der Beantwortung der Frage zu den Graphen in Abb.~\ref{fig:bfs:graph} und ~\ref{fig:bfs:graph2} haben Sie wahrscheinlich intuitiv begonnen, ein paar Wege auszuprobieren und je nachdem wieder zu verwerfen, z.B. wenn Sie gemerkt haben, dass Sie von einem Knoten aus nicht mehr weiter kommen. Damit das Problem von einem Computer gel\"ost werden kann braucht er aber ein klares, strukturierteres Vorgehen, um die Frage nach der Erreichbarkeit zu beantworten.
 
-Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein solches entwickeln \"uberlegen wir uns noch zus\"atzlich, ob wir ausser der Erreichbarkeit sonst noch Informationen haben wollen. Wenn wir herausgefunden haben, dass ein Knoten von einem Startknoten aus erreichbar ist, m\"ochten wir oftmals auch gerne wissen, wie weit entfernt er ist (in Anzahl Kanten, die traversiert werden m\"ussen, um den Knoten zu erreichen). Falls es mehrere Wege zum Knoten gibt sind wir h\"aufig an der k\"urzesten Distanz interessiert. Nicht zuletzt interessiert uns dann auch der konkrete Weg, der vom Startknoten zum Zielknoten f\"uhrt.
+Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein solches entwickeln \"uberlegen wir uns noch zus\"atzlich, ob wir ausser der Erreichbarkeit sonst noch Informationen haben wollen. Wenn wir herausgefunden haben, dass ein Knoten von einem Startknoten aus erreichbar ist, m\"ochten wir oftmals auch gerne wissen, wie weit entfernt er ist (in Anzahl Kanten, \"uber die der Knoten erreicht werden kann). Falls es mehrere Wege zum Knoten gibt sind wir h\"aufig an der k\"urzesten Distanz interessiert. Nicht zuletzt interessiert uns dann auch der konkrete Weg, der vom Startknoten zum Zielknoten f\"uhrt.
 
 \paragraph{K\"urzester Weg:}Im Graphen aus Abb.~\ref{fig:bfs:graph} ist Knoten 4 von Knoten 0 \"uber Knoten 1 und 2 erreichbar (s.  Abb.~\ref{fig:bfs:graph:pathblue}), aber auch \"uber Knoten 3, 1, und 2 (s. Abb.~\ref{fig:bfs:graph:pathred}). Der erste Weg ist jedoch der K\"urzere: er traversiert nur 3 Kanten, w\"ahrend der zweite Weg 4 Kanten traversiert.
 
@@ -170,19 +166,17 @@ Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein sol
 \end{center}
 \end{figure}
 
-Wir m\"ochten nun also ein Vorgehen entwickeln, welches in einem Graphen von einem Startknoten aus einen Knoten auf dem k\"urzesten Weg sucht und uns dar\"uber informiert, ob er vom Startknoten aus erreichbar ist.
+
 
 \begin{aufg}
- \"Uberlegen Sie sich, wie so ein Vorgehen aussehen k\"onnte.
-
-Beachten Sie dabei Folgendes: wenn wir beim Startknoten beginnen, m\"ochten wir zuerst alle Knoten absuchen, welche mit minimaler Distanz vom Startknoten aus erreichbar sind. Welche Knoten sind das? Wenn wir in k\"urzester Distanz den gesuchten Knoten nicht gefunden haben m\"ussen wir die n\"achste gr\"ossere Distanz in Kauf nehmen, in der Hoffnung, den Knoten dort zu finden. Wenn wir so vorgehen und den Knoten finden wissen wir n\"ahmlich, dass wir ihn auf dem k\"urzesten m\"oglichen Weg gefunden haben.
+Wir m\"ochten nun also ein Vorgehen entwickeln, welches in einem Graphen von einem Startknoten aus einen Knoten auf dem k\"urzesten Weg sucht und uns dar\"uber informiert, ob er vom Startknoten aus erreichbar ist. \"Uberlegen Sie sich, wie so ein Vorgehen aussehen k\"onnte.
 \end{aufg}
 
 \subsection{Algorithmus}\label{subsec:algorithm}
 
 Wie wir schon erw\"ahnt haben gibt es mehrere M\"oglichkeiten f\"ur ein Vorgehen, welches einen Graphen traversiert und nach einem bestimmten Knoten sucht. In diesem Kapitel werden wir einen Algorithmus,  n\"amlich die Breitensuche, Schritt f\"ur Schritt erarbeiten. Die Breitensuche erm\"oglicht es uns n\"amlich einen Knoten zu suchen, und, falls er gefunden wurde, seine k\"urzeste Distanz beziehungsweise auch den konkreten Weg zum Knoten ganz einfach herauszufinden.
 
-Der Algorithmus f\"ur die Breitensuche ben\"otigt drei Inputs: einen Graphen, einen Startknoten und einen Zielknoten. In einem ersten Schritt wird der Startknoten betrachtet. Wir haben gesehen, dass vom Startknoten aus direkt alle seine Nachbarn erreicht werden k\"onnen. In Abb.~\ref{fig:bfs:bfs1} sehen Sie nochmals den Graphen aus Abb.~\ref{fig:bfs:graph}. Wir betrachten hier Knoten 0 als Startknoten (rot eingef\"arbt). Alle Nachbarn, die von diesem Startknoten aus erreichbar sind, sind grau eingef\"arbt.
+Der Algorithmus f\"ur die Breitensuche ben\"otigt drei Inputs: einen Graphen, einen Startknoten und einen Zielknoten. In einem ersten Schritt wird der Startknoten betrachtet. Im Graphen in  Abb.~\ref{fig:bfs:bfs1} k\"onnen vom Startknoten 0 aus alle seine Nachbarn, n\"amlich die Knoten 1 und 3 erreicht werden. Alle Nachbarn, die von diesem Startknoten aus erreichbar sind, werden grau eingef\"arbt.
 
 \begin{figure}[htb]
 \begin{center}
@@ -266,12 +260,12 @@ Wir m\"ochten nun zum Beispiel wissen, ob Knoten 2 von diesem Startknoten aus er
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\caption{Aktuelle Knoten und ihre Nachbarn}
+\caption{Aktuell betrachtete Knoten (rot) und ihre Nachbarn (grau)}
 \label{fig:bfs:bfs2}
 \end{center}
 \end{figure}
 
-In Abb.~\ref{fig:bfs:bfs2} sehen wir, dass der Knoten 2 der einzige Nachbarsknoten von Knoten 1 ist. Nun betrachten wir auch noch den 2. Nachbarn unseres Startknotens, n\"amlich Knoten 3, und betrachten dessen Nachbarn. Der einzige Nachbarsknoten von Knoten 3 ist Knoten 1, welchen wir aber gerade eben schon betrachtet haben und deshalb nicht mehr betrachten m\"ussen. Wir m\"ussen uns also irgendwie merken, welche Knoten wir schon betrachtet haben, damit wir sie nicht nochmals bearbeiten wenn wir sp\"ater auf einem anderen Weg nochmals darauf stossen. 
+In Abb.~\ref{fig:bfs:bfs2} sehen wir, dass der Knoten 2 der einzige Nachbarknoten von Knoten 1 ist. Nun betrachten wir auch noch den 2. Nachbarn unseres Startknotens, n\"amlich Knoten 3, und betrachten dessen Nachbarn. Der einzige Nachbarknoten von Knoten 3 ist Knoten 1, welchen wir aber gerade eben schon betrachtet haben und deshalb nicht mehr betrachten m\"ussen. Wir m\"ussen uns also irgendwie merken, welche Knoten wir schon betrachtet haben, damit wir sie nicht nochmals bearbeiten wenn wir sp\"ater auf einem anderen Weg nochmals darauf stossen. 
 
 Wir erreichen dies, indem wir einen betrachteten Knoten speziell markieren, beispielsweise indem wir ihn schwarz einf\"arben. Gleichzeitig f\"arben wir Knoten, die wir als Nachbarn eines Knoten schon entdeckt haben, aber noch nicht bearbeiten haben, grau ein. Abb.~\ref{fig:bfs:bfs3} zeigt den Graphen, nachdem der Startknoten (Knoten 0) betrachtet wurde (links), nachdem sein erster Nachbar (Knoten 1) betrachtet wurde (Mitte) und nachdem sein zweiter Nachbar (Knoten 3) betrachtet wurde (rechts).
 
@@ -360,7 +354,7 @@ Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betracht
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     semithick, style=circle]
-  \tikzstyle{zstate}=[fill=white!80!green,text=black!40!green,draw=black!40!green]
+  \tikzstyle{zstate}=[fill=gray!30!white,text=black,draw=white!40!green,thick]
   \tikzstyle{wstate}=[fill=white,text=black,draw=black]
   \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
   \tikzstyle{bstate}=[fill=black,text=white,draw=black]
@@ -381,7 +375,7 @@ Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betracht
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\caption{Zielknoten wurde gefunden}
+\caption{Zielknoten (gr\"un markiert) wurde gefunden}
 \label{fig:bfs:bfs4}
 \end{center}
 \end{figure}
@@ -389,7 +383,7 @@ Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betracht
 
 \paragraph{Zusammenfassung:}Wir m\"ochten nun das Vorgehen zusammenfassen und in einem Algorithmus formulieren.
 
-Wir beginnen mit einem Startknoten und f\"arben ihn sogleich grau ein. Der n\"achste zu betrachtende Knoten ist jeweils der n\"achste graue Knoten. Da anfangs nur den Startknoten grau ist, beginnen wir gleich mit diesem Knoten. Falls der Knoten der gesuchte Knoten ist, haben wir ihn gefunden und k\"onnen das Programm beenden. Andernfalls f\"arben wir alle Nachbarn des Knotens grau ein. Am Schluss f\"arben wir den betrachteten Knoten selbst schwarz ein, um zu markieren, dass wir diesen nun bearbeitet haben. Wir fahren fort mit dem grauen Knoten, der als erstes grau gef\"arbt wurde und wiederholen das beschriebene Vorgehen. 
+Wir beginnen mit einem Startknoten und f\"arben ihn sogleich grau ein. Der n\"achste zu betrachtende Knoten ist jeweils der n\"achste graue Knoten. Da anfangs nur den Startknoten grau ist, beginnen wir gleich mit diesem Knoten. Falls der Knoten der gesuchte Knoten ist, haben wir ihn gefunden und k\"onnen das Programm beenden. Andernfalls f\"arben wir alle Nachbarn des Knotens grau ein. Den betrachteten Knoten selbst f\"arben wir schwarz ein, um zu markieren, dass wir diesen nun bearbeitet haben. Wir fahren fort mit dem grauen Knoten, der als erstes grau gef\"arbt wurde und wiederholen das beschriebene Vorgehen. 
 
 Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in der sie eingef\"arbt werden. Damit stellen wir sicher, dass zuerst alle Knoten von einer kleineren Distanz zum Startknoten bearbeitet werden als die weiter entfernten, da jene auch erst sp\"ater eingef\"arbt wurden. Man kann sich dies also wie eine Warteschlange vorstellen, in der die grauen Knoten eingereiht werden:  die Knoten die zuerst eingereiht wurden, werden auch zuerst wieder von der Warteschlage entfernt.
 
@@ -407,7 +401,7 @@ Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breit
    		\Return true\Comment{Zielknoten gefunden}
    	\EndIf
 	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
-		\If {$nachbar$ nicht schwarz oder grau}\Comment{Neu entdeckter Knoten}
+		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
 			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
 		\EndIf
@@ -423,7 +417,7 @@ Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breit
 \begin{aufg}
 Benutzen Sie ihre Funktion \textsc{Nachbarknoten}, welche Sie bereits im vorhergehenden Kapitel geschrieben haben, um Algorithmus~\ref{alg:bfs} zu implementieren. Testen Sie Ihr Programm indem sie die Breitensuche f\"ur verschiedene Start- und Endknoten aufrufen.
 
-\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzen, dass sie in einem Array f\"ur jeden Knoten seine Farbe speichern. Farben k\"onnen Sie einfach als Zahlen darstellen (z.B. weiss=0, grau=1, schwarz=2). F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
+\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzen, dass sie in einer Liste f\"ur jeden Knoten seine Farbe speichern. F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
 \end{aufg}
 
 \subsection{Anwendung und Erweiterung}
@@ -542,7 +536,7 @@ Laura
 \label{bfs:ex:network}
 \end{figure}
 
-Dieses Netzwerk kann mit einem Graphen modelliert werden, bei dem die Knoten die Personen repr\"asentieren und die Kanten die Freundschaftsbeziehungen zwischen den Personen. Den daraus resultierenden Graphen sehen Sie in Abb.~\ref{bfs:ex:networkgraph}
+Dieses Netzwerk kann mit einem ungerichteten Graphen modelliert werden, bei dem die Knoten die Personen repr\"asentieren und die Kanten die Freundschaftsbeziehungen zwischen den Personen. Den daraus resultierenden Graphen sehen Sie in Abb.~\ref{bfs:ex:networkgraph}
 
 \begin{figure}[htb]
 \begin{center}
@@ -588,7 +582,7 @@ Dieses Netzwerk kann mit einem Graphen modelliert werden, bei dem die Knoten die
 \end{figure}
 
 \begin{aufg}
-Modellieren Sie diesen Graphen als Adjazenzmatrix und lesen Sie ihn in ihr bisheriges Programm ein.
+Modellieren Sie diesen Graphen als Adjazenzmatrix und lesen Sie ihn in ihr bisheriges Programm ein. Benutzen Sie daf\"ur folgende Reihenfolge: Tom f\"ur Zeile/Spalte 0, John f\"ur Zeile/Spalte 1 und so weiter.
 \end{aufg}
 
 \begin{aufg}
@@ -606,7 +600,7 @@ Wir k\"onnen mit unserem Programm jetzt also einfach beurteilen, ob es eine Verb
 \textbf{Hinweis:} Es reicht nicht, die Distanz in einer einzigen Variablen zu Speichern. Wieso nicht?
 \end{aufg}
 
-Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Distanz von 1 erreichbar. Da wir bei der Breitensuche immer zuerst alle Knoten einer gewissen Distanz abarbeiten, bevor wir die Distanz erh\"ohen, wissen wir, dass wenn wir einen Knoten neu entdecken, dass dieser nicht \"uber irgendeinen Weg schneller erreichbar ist als \"uber den Knoten, von dem aus wir ihn entdeckt haben. Das heisst also, ein Knoten kann mit einer Distanz vom Vorg\"angerknoten + 1 erreicht werden. Da wir in unserem Algorithmus beim Abarbeiten der grauen Knoten nicht mehr wissen, wie weit diese vom Startknoten entfernt sind, k\"onnen wir nicht einfach in einer Variable die Distanz festhalten, auf der wir gerade suchen. Wir k\"onnen aber zu jedem neu entdeckten Knoten seine Distanz speichern, damit wir beim Bearbeiten des Knotens wissen, wie weit entfernt vom Startknoten wir uns befinden. Wenn wir schlussendlich den Zielknoten erreichen, k\"onnen wir ganz einfach seine Distanz auslesen. In Algorithmus~\ref{alg:bfs:distance} sehen Sie den Algorithmus mit er Erweiterung um die Speicherung der Distanzen (rot markiert).
+Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Distanz von 1 erreichbar. Da wir bei der Breitensuche immer zuerst alle Knoten einer gewissen Distanz abarbeiten, bevor wir die Distanz erh\"ohen, wissen wir, dass wenn wir einen Knoten neu entdecken, dass dieser nicht \"uber irgendeinen Weg schneller erreichbar ist als \"uber den Knoten, von dem aus wir ihn entdeckt haben. Das heisst also, ein Knoten kann mit einer Distanz vom Vorg\"angerknoten + 1 erreicht werden. Da wir in unserem Algorithmus beim Abarbeiten der grauen Knoten nicht mehr wissen, wie weit diese vom Startknoten entfernt sind, k\"onnen wir nicht einfach in einer Variable die Distanz festhalten, auf der wir gerade suchen. Wir k\"onnen aber zu jedem neu entdeckten Knoten seine Distanz speichern, damit wir beim Bearbeiten des Knotens wissen, wie weit entfernt vom Startknoten wir uns befinden. Wenn wir schlussendlich den Zielknoten erreichen, k\"onnen wir ganz einfach seine Distanz auslesen. In Algorithmus~\ref{alg:bfs:distance} sehen Sie den Algorithmus mit der Erweiterung mit der Speicherung der Distanzen (rot markiert).
 
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs:distance}
@@ -621,7 +615,7 @@ Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Dista
    		\Return true\Comment{Zielknoten gefunden}
    	\EndIf
 	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
-		\If {$nachbar$ nicht schwarz oder grau}\Comment{Neu entdeckter Knoten}
+		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
 			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
 			\textcolor{red}{\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$}
@@ -662,7 +656,7 @@ F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir ent
    		\Return true\Comment{Zielknoten gefunden}
    	\EndIf
 	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
-		\If {$nachbar$ nicht schwarz oder grau}\Comment{Neu entdeckter Knoten}
+		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
 			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
 			\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$
@@ -695,7 +689,7 @@ Sie m\"ochten wissen, wie man am schnellsten nur mit Tramfahren von der ETH Z\"u
 \end{figure}
 
 \begin{aufg}
-\"Uberlegen Sie sich, wie Sie dieses Problem mit Hilfe von einem Graphen modellieren k\"onnen implementieren Sie den entsprechenden Graphen als Adjazenzmatrix. Betrachten Sie dabei aussschliesslich Tramlinien und -haltestellen und nur solche, die im Kartenausschnitt komplett sichtbar sind.
+\"Uberlegen Sie sich, wie Sie dieses Problem mit Hilfe von einem Graphen modellieren k\"onnen und implementieren Sie den entsprechenden Graphen als Adjazenzmatrix. Betrachten Sie dabei aussschliesslich Tramlinien und -haltestellen und nur solche, die im Kartenausschnitt komplett sichtbar sind.
 
 Handelt es sich um einen gerichteten oder ungerichteteten Graphen?
 \end{aufg}

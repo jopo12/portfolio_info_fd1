@@ -149,7 +149,7 @@ def nachbarsknoten(graph, node):
 	n = len(graph[0])
 	neighbors = []
 	for i in range(n):
-		if graph[node][i] == 1:
+		if graph[node][i] = = 1:
 			neighbors.append(i)
 	return neighbors
 \end{lstlisting}
@@ -162,7 +162,8 @@ def nachbarsknoten(graph, node):
 
 
 \begin{lsg}
-\textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} erl\"autert.
+Wenn wir beim Startknoten beginnen, m\"ochten wir zuerst alle Knoten absuchen, welche mit minimaler Distanz vom Startknoten aus erreichbar sind, also die direkten Nachbarsknoten vom Startknoten. Wenn wir in k\"urzester Distanz den gesuchten Knoten nicht gefunden haben m\"ussen wir die n\"achste gr\"ossere Distanz in Kauf nehmen, in der Hoffnung, den Knoten dort zu finden. Wenn wir so vorgehen und den Knoten finden wissen wir n\"amlich, dass wir ihn auf dem k\"urzesten m\"oglichen Weg gefunden haben.
+\textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} detaillierter erl\"autert.
 \end{lsg}
 
 \begin{lsg}
@@ -175,14 +176,12 @@ def breitensuche (graph, start, ziel):
 	farben[start] = 'grau'
 	while graueKnoten != []:
 		current = graueKnoten[0]
-		if current == ziel:
-			print "Distanz: ", distanzen[ziel]
+		if current = = ziel:
 			return True
 		for nachbar in nachbarsknoten(graph, current):
 			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
 				farben[nachbar] = 'grau'
 				graueKnoten += [nachbar]
-				distanzen[nachbar] = distanzen[current] + 1
 		farben[current] = 'schwarz'
 		graueKnoten = graueKnoten[1:]
 	return False
@@ -227,7 +226,7 @@ def breitensuche (graph, start, ziel):
 	distanzen = [0] * n
 	while graueKnoten != []:
 		current = graueKnoten[0]
-		if current == ziel:
+		if current = = ziel:
 			print "Distanz: ", distanzen[ziel]
 			return True
 		for nachbar in nachbarsknoten(graph, current):
