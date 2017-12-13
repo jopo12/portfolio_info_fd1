@@ -104,7 +104,10 @@ Wie Sie merken, ist das L\"osen der Aufgabe in einem etwas komplizierteren Graph
 
 \paragraph{Algorithmus entwickeln:}Wir m\"ochten also einen Algorithmus entwickeln, der f\"ur einen Startknoten $s$ in einem Graphen beurteilen kann, ob ein anderer Knoten von $s$ aus erreichbar ist oder nicht. Bei der Beantwortung der Frage zu den Graphen in Abb.~\ref{fig:bfs:graph} und ~\ref{fig:bfs:graph2} haben Sie wahrscheinlich intuitiv begonnen, ein paar Wege auszuprobieren und je nachdem wieder zu verwerfen, z.B. wenn Sie gemerkt haben, dass Sie von einem Knoten aus nicht mehr weiter kommen. Damit das Problem von einem Computer gel\"ost werden kann braucht er aber ein klares, strukturierteres Vorgehen, um die Frage nach der Erreichbarkeit zu beantworten.
 
-Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein solches entwickeln \"uberlegen wir uns noch zus\"atzlich, ob wir ausser der Erreichbarkeit sonst noch Informationen haben wollen. Wenn wir herausgefunden haben, dass ein Knoten von einem Startknoten aus erreichbar ist, m\"ochten wir oftmals auch gerne wissen, wie weit entfernt er ist (in Anzahl Kanten, \"uber die der Knoten erreicht werden kann). Falls es mehrere Wege zum Knoten gibt sind wir h\"aufig an der k\"urzesten Distanz interessiert. Nicht zuletzt interessiert uns dann auch der konkrete Weg, der vom Startknoten zum Zielknoten f\"uhrt.
+Es gibt verschiedene Ans\"atze f\"ur ein solches Vorgehen. Bevor wir nun ein solches Vorgehen entwickeln \"uberlegen wir uns noch zus\"atzlich, ob wir ausser der Erreichbarkeit noch weitere Informationen haben wollen, da dies die Wahl unseres Vorgehens beeinflussen wird.
+
+Stellen Sie sich zum Beispiel ein Labyrinth vor. Als Erstes m\"ochten Sie nat\"urlich wissen, ob es \"uberhaupt einen Weg heraus gibt! Wenn der Ausgang tats\"achlich erreichbar ist, m\"ochten Sie vermutlich den k\"urzesten Weg aus dem Labyrinth heraus finden. Die Anforderung, den k\"urzesten Weg zu finden, taucht in vielen weiteren Problemen auf, und wir m\"ochten hier deshalb einen Algorithmus entwickeln, der nicht nur die Frage der Erreichbarkeit beantworten kann, sondern auch, wie lange der k\"urzeste Weg zum Ziel ist. Nicht zuletzt interessiert uns dann auch der konkrete Weg, der vom Startknoten zum Zielknoten f\"uhrt.
+
 
 \paragraph{K\"urzester Weg:}Im Graphen aus Abb.~\ref{fig:bfs:graph} ist Knoten 4 von Knoten 0 \"uber Knoten 1 und 2 erreichbar (s.  Abb.~\ref{fig:bfs:graph:pathblue}), aber auch \"uber Knoten 3, 1, und 2 (s. Abb.~\ref{fig:bfs:graph:pathred}). Der erste Weg ist jedoch der K\"urzere: er traversiert nur 3 Kanten, w\"ahrend der zweite Weg 4 Kanten traversiert.
 
@@ -176,13 +179,13 @@ Wir m\"ochten nun also ein Vorgehen entwickeln, welches in einem Graphen von ein
 
 Wie wir schon erw\"ahnt haben gibt es mehrere M\"oglichkeiten f\"ur ein Vorgehen, welches einen Graphen traversiert und nach einem bestimmten Knoten sucht. In diesem Kapitel werden wir einen Algorithmus,  n\"amlich die Breitensuche, Schritt f\"ur Schritt erarbeiten. Die Breitensuche erm\"oglicht es uns n\"amlich einen Knoten zu suchen, und, falls er gefunden wurde, seine k\"urzeste Distanz beziehungsweise auch den konkreten Weg zum Knoten ganz einfach herauszufinden.
 
-Der Algorithmus f\"ur die Breitensuche ben\"otigt drei Inputs: einen Graphen, einen Startknoten und einen Zielknoten. In einem ersten Schritt wird der Startknoten betrachtet. Im Graphen in  Abb.~\ref{fig:bfs:bfs1} k\"onnen vom Startknoten 0 aus alle seine Nachbarn, n\"amlich die Knoten 1 und 3 erreicht werden. Alle Nachbarn, die von diesem Startknoten aus erreichbar sind, werden grau eingef\"arbt.
+Der Algorithmus f\"ur die Breitensuche ben\"otigt drei Inputs: einen Graphen, einen Startknoten und einen Zielknoten. In einem ersten Schritt wird der Startknoten betrachtet. Im Graphen in  Abb.~\ref{fig:bfs:bfs1} k\"onnen vom Startknoten 0 aus alle seine Nachbarn, n\"amlich die Knoten 1 und 3 erreicht werden. Alle Nachbarn, die von diesem Startknoten aus erreichbar sind, sind in Abb.~\ref{fig:bfs:bfs1} grau dargestellt.
 
 \begin{figure}[htb]
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     semithick, style=circle]
-  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{rstate}=[fill=white,text=black,draw=red]
   \tikzstyle{wstate}=[fill=white,text=black,draw=black]
   \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
   \tikzstyle{bstate}=[fill=black,text=white,draw=black]
@@ -203,19 +206,19 @@ Der Algorithmus f\"ur die Breitensuche ben\"otigt drei Inputs: einen Graphen, ei
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\caption{Startknoten (rot) und seine Nachbarn (grau)}
+\caption{Startknoten (rot markiert) und seine Nachbarn (grau)}
 \label{fig:bfs:bfs1}
 \end{center}
 \end{figure}
 
 
-Wir m\"ochten nun zum Beispiel wissen, ob Knoten 2 von diesem Startknoten aus erreichbar ist. Als Erstes pr\"ufen wir also, ob sich der Knoten unter den Nachbarn des Startknotens befindet. Da dies nicht der Fall ist, m\"ussen wir weitersuchen. Da wir mit Distanz 1 den Knoten nicht gefunden haben, m\"ussen wir bei einer gr\"osseren Distanz weitersuchen, also betrachten wir alle Knoten, die mit einer maximalen Distanz von 2 vom Startknoten aus erreichbar sind. Dies sind alle Knoten, die von den Nachbarn des Startknotens aus erreichbar sind. Wir w\"ahlen also zuerst den ersten Nachbarn, Knoten 1, und betrachten dessen Nachbarn. 
+Wir m\"ochten nun zum Beispiel wissen, ob Knoten 4 von diesem Startknoten aus erreichbar ist. Als Erstes pr\"ufen wir also, ob sich der Knoten unter den Nachbarn des Startknotens befindet. Da dies nicht der Fall ist, m\"ussen wir weitersuchen. Da wir mit Distanz 1 den Knoten nicht gefunden haben, m\"ussen wir bei einer gr\"osseren Distanz weitersuchen, also betrachten wir alle Knoten, die mit einer maximalen Distanz von 2 vom Startknoten aus erreichbar sind. Dies sind alle Knoten, die von den Nachbarn des Startknotens aus erreichbar sind. Wir w\"ahlen also zuerst den ersten Nachbarn, Knoten 1, und betrachten dessen Nachbarn. 
 
 \begin{figure}[htb]
 \begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     semithick, style=circle, scale=0.45]
-  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{rstate}=[fill=white,text=black,draw=red]
   \tikzstyle{wstate}=[fill=white,text=black,draw=black]
   \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
   \tikzstyle{bstate}=[fill=black,text=white,draw=black]
@@ -236,10 +239,18 @@ Wir m\"ochten nun zum Beispiel wissen, ob Knoten 2 von diesem Startknoten aus er
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\qquad
+\caption{Aktuell betrachteter Knoten (rot markiert) und sein Nachbar (grau)}
+\label{fig:bfs:bfs21}
+\end{center}
+\end{figure}
+
+In Abb.~\ref{fig:bfs:bfs21} sehen wir, dass der Knoten 2 der einzige Nachbarknoten von Knoten 1 ist. Als N\"achstes betrachten wir den 2. Nachbarn unseres Startknotens, n\"amlich Knoten 3, und betrachten dessen Nachbarn.
+
+\begin{figure}[htb]
+\begin{center}
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
                     semithick, style=circle,scale=0.45]
-  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{rstate}=[fill=white,text=black,draw=red]
   \tikzstyle{wstate}=[fill=white,text=black,draw=black]
   \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
   \tikzstyle{bstate}=[fill=black,text=white,draw=black]
@@ -260,12 +271,12 @@ Wir m\"ochten nun zum Beispiel wissen, ob Knoten 2 von diesem Startknoten aus er
          (5) 	edge [bend left] node {} (4);
 
 \end{tikzpicture}
-\caption{Aktuell betrachtete Knoten (rot) und ihre Nachbarn (grau)}
-\label{fig:bfs:bfs2}
+\caption{Aktuell betrachtete Knoten (rot markiert) und sein Nachbar (grau)}
+\label{fig:bfs:bfs22}
 \end{center}
 \end{figure}
 
-In Abb.~\ref{fig:bfs:bfs2} sehen wir, dass der Knoten 2 der einzige Nachbarknoten von Knoten 1 ist. Nun betrachten wir auch noch den 2. Nachbarn unseres Startknotens, n\"amlich Knoten 3, und betrachten dessen Nachbarn. Der einzige Nachbarknoten von Knoten 3 ist Knoten 1, welchen wir aber gerade eben schon betrachtet haben und deshalb nicht mehr betrachten m\"ussen. Wir m\"ussen uns also irgendwie merken, welche Knoten wir schon betrachtet haben, damit wir sie nicht nochmals bearbeiten wenn wir sp\"ater auf einem anderen Weg nochmals darauf stossen. 
+Der einzige Nachbarknoten von Knoten 3 ist Knoten 1, welchen wir aber gerade eben schon betrachtet haben und deshalb nicht mehr betrachten m\"ussen. Wir m\"ussen uns also irgendwie merken, welche Knoten wir schon betrachtet haben, damit wir sie nicht nochmals bearbeiten wenn wir sp\"ater auf einem anderen Weg nochmals darauf stossen.
 
 Wir erreichen dies, indem wir einen betrachteten Knoten speziell markieren, beispielsweise indem wir ihn schwarz einf\"arben. Gleichzeitig f\"arben wir Knoten, die wir als Nachbarn eines Knoten schon entdeckt haben, aber noch nicht bearbeiten haben, grau ein. Abb.~\ref{fig:bfs:bfs3} zeigt den Graphen, nachdem der Startknoten (Knoten 0) betrachtet wurde (links), nachdem sein erster Nachbar (Knoten 1) betrachtet wurde (Mitte) und nachdem sein zweiter Nachbar (Knoten 3) betrachtet wurde (rechts).
 
@@ -348,7 +359,7 @@ Wir erreichen dies, indem wir einen betrachteten Knoten speziell markieren, beis
 \end{center}
 \end{figure}
 
-Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betrachtet. Knoten 2 war der gesuchte Knoten - das heisst wir haben den Knoten gefunden!
+Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betrachtet. Der einzige Nachbarknoten von Knoten 2 ist Knoten 4. Knoten 4 war der gesuchte Knoten - das heisst wir haben den Knoten gefunden!
 
 \begin{figure}[htb]
 \begin{center}
@@ -359,11 +370,11 @@ Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betracht
   \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
   \tikzstyle{bstate}=[fill=black,text=white,draw=black]
   
-  \node[bstate] 		(0)                  {$0$};
+  \node[bstate] 		(0)    {$0$};
   \node[bstate]         (1) [below left of=0] {$1$};
-  \node[zstate]         (2) [below right of=1] {$2$};
+  \node[bstate]         (2) [below right of=1] {$2$};
   \node[bstate]         (3)  [right of=0] {$3$};
-  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[zstate]         (4) [ right of=2]       {$4$};
   \node[wstate]         (5) [above right of=4]    {$5$};
 
   \path (0) edge    [bend right]        node {} (1)
@@ -380,34 +391,186 @@ Im n\"achsten Durchlauf wird der n\"achste graue Knoten, also Knoten 2, betracht
 \end{center}
 \end{figure}
 
-
 \paragraph{Zusammenfassung:}Wir m\"ochten nun das Vorgehen zusammenfassen und in einem Algorithmus formulieren.
 
 Wir beginnen mit einem Startknoten und f\"arben ihn sogleich grau ein. Der n\"achste zu betrachtende Knoten ist jeweils der n\"achste graue Knoten. Da anfangs nur den Startknoten grau ist, beginnen wir gleich mit diesem Knoten. Falls der Knoten der gesuchte Knoten ist, haben wir ihn gefunden und k\"onnen das Programm beenden. Andernfalls f\"arben wir alle Nachbarn des Knotens grau ein. Den betrachteten Knoten selbst f\"arben wir schwarz ein, um zu markieren, dass wir diesen nun bearbeitet haben. Wir fahren fort mit dem grauen Knoten, der als erstes grau gef\"arbt wurde und wiederholen das beschriebene Vorgehen. 
 
-Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in der sie eingef\"arbt werden. Damit stellen wir sicher, dass zuerst alle Knoten von einer kleineren Distanz zum Startknoten bearbeitet werden als die weiter entfernten, da jene auch erst sp\"ater eingef\"arbt wurden. Man kann sich dies also wie eine Warteschlange vorstellen, in der die grauen Knoten eingereiht werden:  die Knoten die zuerst eingereiht wurden, werden auch zuerst wieder von der Warteschlage entfernt.
+Es ist wichtig, dass die grauen Knoten in der Reihenfolge betrachtet werden, in der sie eingef\"arbt werden. Damit stellen wir sicher, dass zuerst alle Knoten von einer kleineren Distanz zum Startknoten bearbeitet werden als die weiter entfernten, da jene auch erst sp\"ater eingef\"arbt wurden. Man kann sich dies also wie eine Warteschlange vorstellen, in der die grauen Knoten eingereiht werden:  die Knoten die zuerst eingereiht wurden, werden auch zuerst wieder von der Warteschlage entfernt. Dies ist das sogenannte FIFO Prinzip: First In, First Out.
 
-Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breitensuche.
+Wenn wir die Suche beginnen, dann reihen wir den Startknoten in die Warteschlange (welche initial leer ist) ein.
+
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[gstate]         (0)  {$0$};
+\end{tikzpicture}
+
+\caption{Warteschlange nur mit dem Startknoten}
+\label{fig:bfs:bfs5}
+\end{center}
+\end{figure}
+
+Da der Startknoten der einzige Knoten in der Warteschlange ist, ist es der Knoten, der als n\"achstes genauer betrachtet wird. Wir entfernen ihn also aus der Warteschlange. Diese Operation wird dequeue genannt.
+
+\begin{figure}[htb]
+\begin{center}
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{trstate}=[fill=white,text=white,draw=white]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[trstate] 		(0)             {};
+  \node[gstate]         (1)   [above left of=0]    {$0$};
+
+  \path (0) edge    [bend left,style=dashed]        node {dequeue} (1);
+\end{tikzpicture}
+\caption{Entfernen des Startknotens aus der Warteschlange}
+\label{fig:bfs:bfs6}
+\end{center}
+\end{figure}
+
+
+Wenn wir nun den Startknoten betrachten, sehen wir seine Nachbarn und f\"ugen diese nacheinander in die Warteschlange ein. In Abb~\ref{fig:bfs:bfs6} ist der Verlauf der Warteschlange nach diesen Schritten zu sehen.
+\begin{figure}[htb]
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{trstate}=[fill=white,text=white,draw=white]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[trstate] 		(0)                  {};
+  \node[wstate]         (1) [above right of=0] {$1$};
+
+  \path (1) edge    [bend left,style=dashed]        node {enqueue} (0);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[gstate] 		(0)                  {$1$};
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[gstate] 		(0)  {$1$};
+  \node[wstate]         (1) [above right of=0] {$3$};
+
+  \path 
+  (1) edge    [bend left, style=dashed]        node {enqueue} (0)
+  ;
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[gstate] 		(0)   {$1$};
+  \node[gstate]         (1) [right of=0] {$3$};
+
+  \path (1) edge         node {} (0)
+  ;
+\end{tikzpicture}
+\caption{Verlauf der Warteschlange}
+\label{fig:bfs:bfs7}
+\end{center}
+\end{figure}
+
+Am Schluss wird der Startknoten schwarz eingef\"arbt. Der aktuell eingef\"arbte Graph und die Warteschlange sind in Abb.~\ref{fig:bfs:bfs7} zu sehen. 
+
+\begin{figure}[htb]
+\begin{center}
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=circle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[bstate] 		(0)                  {$0$};
+  \node[gstate]         (1) [below left of=0] {$1$};
+  \node[wstate]         (2) [below right of=1] {$2$};
+  \node[gstate]         (3)  [right of=0] {$3$};
+  \node[wstate]         (4) [ right of=2]       {$4$};
+  \node[wstate]         (5) [above right of=4]    {$5$};
+
+  \path (0) edge    [bend right]        node {} (1)
+            	edge           node {} (3)
+        (1) 	edge [bend right]	node {} (2)       
+        (2) 	edge 	node {} (4)
+        (3)	 edge    [bend left]          node {} (1)
+        (4) 	edge node {} (3)
+        (5) 	edge [bend left] node {} (4)         ;
+
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+                    semithick, style=rectangle, scale=0.2]
+  \tikzstyle{rstate}=[fill=white!80!red,text=red,draw=red]
+  \tikzstyle{wstate}=[fill=white,text=black,draw=black]
+  \tikzstyle{gstate}=[fill=gray!30!white,text=black,draw=black]
+  \tikzstyle{bstate}=[fill=black,text=white,draw=black]
+  
+  \node[gstate]         (0)  {$1$};
+  \node[gstate]         (1) [right of=0] {$3$};
+
+  \path (1) edge        node {} (0)
+  ;
+\end{tikzpicture}
+
+\caption{Graph mit der Warteschlange}
+\label{fig:bfs:bfs7}
+\end{center}
+\end{figure}
+
+Als N\"achstes wird der vorderste Knoten in der Warteschlange betrachtet. Er wird aus der Warteschlange entfernt, seine Nachbarn werden in die Warteschlange eingereiht (sofern sie nicht dem gesuchten Knoten entsprechen!) und schlussendlich wird der aktuell betrachtete Knoten schwarz eingef\"arbt. Dies wiederholen wir so lange, bis wir keine Knoten mehr in der Warteschlange haben.
+
+Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breitensuche. Das Ziel des Algorithmus ist es, herauszufinden, ob ein Knoten von einem Startknoten aus erreichbar ist.
 
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs}
 \begin{algorithmic}[1]
 \Procedure{Breitensuche}{$graph,start,ziel$}
+	\If {$start == ziel$} 
+		\Return true\Comment{Startknoten ist schon der Zielknoten}
+	\EndIf
 	\State $start$ grau einf\"arben
    \State $graue Knoten = \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
       \While{$graueKnoten \neq \emptyset$ }
-   	\State $current \gets$ vorderster Knoten aus $graueKnoten$
-	\If {$current = ziel$} 
-   		\Return true\Comment{Zielknoten gefunden}
-   	\EndIf
-	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+   	\State $current \gets$ $graueKnoten$.dequeue()
+	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+		\If {$nachbar == ziel$} 
+   			\Return true\Comment{Zielknoten gefunden}
+   		\EndIf
 		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
-			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+			\State $graueKnoten$.enqueue($nachbar$)
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-	\State $current$ aus $graueKnoten$ entfernen
    \EndWhile\label{euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
@@ -417,7 +580,7 @@ Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breit
 \begin{aufg}
 Benutzen Sie ihre Funktion \textsc{Nachbarknoten}, welche Sie bereits im vorhergehenden Kapitel geschrieben haben, um Algorithmus~\ref{alg:bfs} zu implementieren. Testen Sie Ihr Programm indem sie die Breitensuche f\"ur verschiedene Start- und Endknoten aufrufen.
 
-\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzen, dass sie in einer Liste f\"ur jeden Knoten seine Farbe speichern. F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie auch ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden.
+\textbf{Hinweis:} Sie k\"onnen das Einf\"arben der Knoten so umsetzen, dass sie in einer Liste f\"ur jeden Knoten seine Farbe speichern. F\"ur die Umsetzung der Warteschlange der grauen Knoten k\"onnen Sie ein Array verwenden. Mit dem Befehl $pop(x)$ kann ein Element an Stelle x im Array ausgelesen und entfernt werden. Der Befehl $pop(0)$ entspricht also der oben beschriebenen $dequeue$ Operation.
 \end{aufg}
 
 \subsection{Anwendung und Erweiterung}
@@ -600,29 +763,54 @@ Wir k\"onnen mit unserem Programm jetzt also einfach beurteilen, ob es eine Verb
 \textbf{Hinweis:} Es reicht nicht, die Distanz in einer einzigen Variablen zu Speichern. Wieso nicht?
 \end{aufg}
 
-Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Distanz von 1 erreichbar. Da wir bei der Breitensuche immer zuerst alle Knoten einer gewissen Distanz abarbeiten, bevor wir die Distanz erh\"ohen, wissen wir, dass wenn wir einen Knoten neu entdecken, dass dieser nicht \"uber irgendeinen Weg schneller erreichbar ist als \"uber den Knoten, von dem aus wir ihn entdeckt haben. Das heisst also, ein Knoten kann mit einer Distanz vom Vorg\"angerknoten + 1 erreicht werden. Da wir in unserem Algorithmus beim Abarbeiten der grauen Knoten nicht mehr wissen, wie weit diese vom Startknoten entfernt sind, k\"onnen wir nicht einfach in einer Variable die Distanz festhalten, auf der wir gerade suchen. Wir k\"onnen aber zu jedem neu entdeckten Knoten seine Distanz speichern, damit wir beim Bearbeiten des Knotens wissen, wie weit entfernt vom Startknoten wir uns befinden. Wenn wir schlussendlich den Zielknoten erreichen, k\"onnen wir ganz einfach seine Distanz auslesen. In Algorithmus~\ref{alg:bfs:distance} sehen Sie den Algorithmus mit der Erweiterung mit der Speicherung der Distanzen (rot markiert).
+Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Distanz von 1 erreichbar. Da wir bei der Breitensuche immer zuerst alle Knoten einer gewissen Distanz abarbeiten, bevor wir die Distanz erh\"ohen, wissen wir, dass wenn wir einen Knoten neu entdecken, dass dieser nicht \"uber irgendeinen Weg schneller erreichbar ist als \"uber den Knoten, von dem aus wir ihn entdeckt haben. Das heisst also, ein Knoten kann mit einer Distanz vom Vorg\"angerknoten + 1 erreicht werden. Da wir in unserem Algorithmus beim Abarbeiten der grauen Knoten nicht mehr wissen, wie weit diese vom Startknoten entfernt sind, k\"onnen wir nicht einfach in einer Variable die Distanz festhalten, auf der wir gerade suchen. Wir k\"onnen aber zu jedem neu entdeckten Knoten seine Distanz speichern, damit wir beim Bearbeiten des Knotens wissen, wie weit entfernt vom Startknoten wir uns befinden. Wenn wir schlussendlich den Zielknoten erreichen, k\"onnen wir ganz einfach seine Distanz auslesen.
+
+\begin{mbsp}
+In unserem Netzwerk aus Abb~\ref{bfs:ex:networkgraph} m\"ochten die minimale Distanz von Tom zu John herausfinden. Wir initialisieren dazu die Distanzen f\"ur jeden Knoten auf -1, um zu symbolisieren, dass wir noch keine konkreten Werte haben. (Beachten Sie die Nummerierung: Tom ist bei Index 0, John bei Index 1, ...,  Laura bei Index 8.)
+\[Distanzen =  \begin{bmatrix}  
+-1, & -1, & -1,  &  -1, & -1, & -1, &  -1, & -1, & -1
+ \end{bmatrix}
+  \]
+ Wenn wir jetzt bei Tom als Startknoten beginnen, k\"onnen wir seine Distanz auf 0 setzen. Seine Nachbarn (Karin und Tina) sind dann jeweils mit einer Distanz von 1 von Tom entfernt:
+ \[Distanzen =  \begin{bmatrix*}[r]
+  0, & -1, & -1, & 1, & 1, & -1, &  -1, & -1, & -1  \\
+ \end{bmatrix*}
+  \]
+  
+  Als N\"achstes w\"urden wir die Nachbarn von Karin betrachten. Hier ist John der einzige noch nicht betrachtete Nachbar und bekommt die Distanz von Karin + 1, also 2. Dies ist die gesuchte Distanz von Tom zu John.
+  
+   \[Distanzen =  \begin{bmatrix*}[r]
+  0, & 2, & -1, & 1, & 1, & -1, &  -1, & -1, & -1  \\
+ \end{bmatrix*}
+  \]
+ \end{mbsp}
+
+Wir k\"onnen nun also den Algorithmus~\ref{alg:bfs} erweitern mit dieser Speicherung der Distanzen. In Algorithmus~\ref{alg:bfs:distance} sehen Sie den erweiterten Algorithmus, wobei die neu dazugekommenen Schritte rot markiert sind.
+
 
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs:distance}
 \begin{algorithmic}[1]
 \Procedure{Breitensuche}{$graph,start,ziel$}
+	\If {$start == ziel$} 
+		\Return true\Comment{Startknoten ist schon der Zielknoten}
+	\EndIf
 	\State $start$ grau einf\"arben
    	\State $graue Knoten \gets \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
 	\textcolor{red}{\State $distanzen$ = array\lbrack Anzahl Knoten\rbrack}
       \While{$graueKnoten \neq \emptyset$ }
-   	\State $current \gets$ vorderster Knoten aus $graueKnoten$
-	\If {$current = ziel$} 
-   		\Return true\Comment{Zielknoten gefunden}
-   	\EndIf
-	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+   	\State $current \gets$ $graueKnoten$.dequeue()
+	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+		\If {$nachbar == ziel$} 
+			\Return true\Comment{Zielknoten gefunden}
+		\EndIf
 		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
-			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+			\State $graueKnoten$.enqueue($nachbar$)
 			\textcolor{red}{\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$}
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-	\State $current$ aus $graueKnoten$ entfernen
    \EndWhile\label{euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
@@ -631,7 +819,7 @@ Wenn wir beim Startknoten starten, dann sind alle seine Nachbarn mit einer Dista
 
 
 \begin{aufg}
-Erg\"anzen Sie Ihr Programm so, dass am Schluss die k\"urzeste Distanz von einem Startknoten zu einem Zielknoten ausgelesen werden kann, falls der Zielknoten vom Startknoten aus erreichbar ist.
+Erg\"anzen Sie Ihr Programm so, dass am Schluss die k\"urzeste Distanz von einem Startknoten zu einem Zielknoten ausgegeben wird, falls der Zielknoten vom Startknoten aus erreichbar ist.
 \end{aufg}
 
 Wir haben nun also ein Programm, das uns sagen kann, wie weit entfernt ein Startknoten von einem Zielknoten mindestens liegt (falls der Zielknoten \"uberhaupt vom Startknoten aus erreichbar ist). Wir m\"ochten unseren Algorithmus nun noch etwas weiter ausbauen, so dass wir am Schluss, falls wir den Zielknoten gefunden haben, herausfinden k\"onnen, \"uber welche Knoten der k\"urzeste Weg vom Startknoten zum Zielknoten f\"uhrt. Wir m\"ussen uns also w\"ahrend dem Traversieren irgendwie merken, wie wir zu einem aktuellen Knoten gelangt sind. Es ist m\"oglich, dass es mehrere Wege von einem Startknoten zu einem Zielknoten gibt, aber wir sind stets am k\"urzesten Weg interessiert. Das heisst, wir k\"onnen w\"ahrend der Suche, beim Abarbeiten eines Knotens, einfach speichern, von welchem Knoten aus wir zu diesem Knoten gelangt sind. Dann k\"onnen wir vom Schlussknoten aus Knoten f\"ur Knoten zur\"uckverfolgen, auf welchem Weg wir zum Ziel gelangt sind.
@@ -640,31 +828,57 @@ Wir haben nun also ein Programm, das uns sagen kann, wie weit entfernt ein Start
 In unserem Netzwerk aus Abb.~\ref{bfs:ex:network} ist Tom mit Karin befreundet und Karin mit John. Tom ist also \"uber Karin mit John verbunden. Ein m\"oglicher Pfad w\"are also Tom - Karin - John. Einen k\"urzeren Pfad gibt es nicht, da Tom nicht direkt mit John befreundet ist. Den Pfad k\"onnen wir konstruieren, indem wir uns w\"ahrend der Breitensuche merken, dass wir von Tom aus auf Karin gestossen sind und von Karin auf John.
 \end{mbsp}
 
-F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir entdecken, mitspeichern, von welchem Knoten aus wir ihn entdeckt haben. In Algorithmus~\ref{alg:bfs:path} sehen Sie diese Erweiterung in den rot markierten Zeilen. 
+F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir entdecken, mitspeichern, von welchem Knoten aus wir ihn entdeckt haben. 
+
+\begin{mbsp}
+Wir starten wiederum in unserem Netzwerk aus Abb~\ref{bfs:ex:networkgraph} und m\"ochten den Weg, welcher mit minimaler Distanz von Tom zu John f\"uhrt, herausfinden. Wir initialisieren dazu, analog zur Matrix mit den Distanzen, die Vorg\"anger f\"ur jeden Knoten auf -1, um zu symbolisieren, dass wir noch keine konkreten Werte haben.
+\[Vorg\ddot{a}nger =  \begin{bmatrix}
+  -1, & -1, & -1, & -1, & -1, & -1, &  -1, & -1, & -1  \\
+ \end{bmatrix}
+  \]
+  Da Tom als Startknoten keinen Vorg\"anger hat, lassen wir dort die -1. F\"ur Toms Nachbarn (Karin und Tina) jedoch tragen wir Tom bzw. den Index von Toms Knoten in die Matrix ein.
+   \[Vorg\ddot{a}nger =  \begin{bmatrix}
+  -1, & -1, & -1, &  0, & 0, & -1, & -1, & -1, & -1  \\
+ \end{bmatrix}
+  \]
+  
+ Der einzige noch nicht betrachtete Nachbar von Karin ist John, also tragen wir bei John den Index von Karins Knoten ein, n\"amlich 3.
+  
+   \[Vorg\ddot{a}nger =  \begin{bmatrix}
+  -1, & 3, & -1, & 0, & 0, & -1, & -1, & -1, & -1  \\
+ \end{bmatrix}
+  \]
+  
+ Um nun den Weg vom Startknoten zum Zielknoten zu berechnen, k\"onnen wir vom Zielknoten her jeweils die Vorg\"angerknoten verfolgen. Bei John (Index 1) hatten wir also also Vorg\"angerknoten Karin (3), bei Karin (Index 3) hatten wir Tom (0), das heisst der Weg vom Startknoten zum Zielknoten ist Tom, Karin, John.
+\end{mbsp}
+
+In Algorithmus~\ref{alg:bfs:path} sehen Sie die Erweiterung mit den Vorg\"angerknoten in den rot markierten Zeilen. 
 
 \begin{algorithm}
 \caption{Breitensuche}\label{alg:bfs:path}
 \begin{algorithmic}[1]
 \Procedure{Breitensuche}{$graph,start,ziel$}
+	\If {$start == ziel$} 
+		\Return true\Comment{Startknoten ist schon der Zielknoten}
+	\EndIf
 	\State $start$ grau einf\"arben
    	\State $graue Knoten \gets \lbrack start\rbrack$\Comment{Warteschlange f\"ur graue Knoten}
 	\State $distanzen$ = array\lbrack Anzahl Knoten\rbrack
 	\textcolor{red}{\State $vorgaenger$ = array\lbrack Anzahl Knoten\rbrack}
       \While{$graueKnoten \neq \emptyset$ }
-   	\State $current \gets$ vorderster Knoten aus $graueKnoten$
-	\If {$current = ziel$} 
-   		\Return true\Comment{Zielknoten gefunden}
-   	\EndIf
-	\ForAll {$narchbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+   	\State $current \gets$ $graueKnoten$.dequeue()
+	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+		\If {$current = ziel$} 
+   			\Return true\Comment{Zielknoten gefunden}
+	   	\EndIf
 		\If {$nachbar$ nicht schwarz und nicht grau}\Comment{Neu entdeckter Knoten}
 		 	\State $nachbar$ grau einf\"arben
-			\State $nachbar$ zuhinterst in $graueKnoten$ einreihen
+			\State   $graueKnoten$.enqueue($nachbar$)
 			\State $distanzen\lbrack nachbar\rbrack = distanzen\lbrack current \rbrack + 1$
 			\textcolor{red}{\State $vorgaenger\lbrack nachbar\rbrack = current$\Comment{Von wo der Knoten entdeckt wurde}}
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-	\State $current$ aus $graueKnoten$ entfernen
    \EndWhile\label{euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
@@ -672,7 +886,11 @@ F\"ur unseren Algorithmus bedeutet das, dass wir f\"ur jeden Knoten, den wir ent
 \end{algorithm}
 
 \begin{aufg}
-Erg\"anzen Sie Ihr Programm nun auch so, dass am Schluss der Weg ausgelesen werden kann, der vom Startknoten zum Zielknoten f\"uhrt, falls dieser vom Startknoten aus erreichbar ist. \textbf{Hinweis}: Beachten Sie, dass der Weg zuerst zur\"uckverfolgt wird. Der Weg soll aber in der Reihenfolge vom Startknoten aus ausgegeben werden.
+Schreiben Sie eine Funktion \textsc{Weg\_zum\_Ziel}, welche als Input den Zielknoten und einen Array von Vorg\"angerknoten hat, und als Output eine Liste der Knoten ausgibt, \"uber welche der Weg vom Startknoten zum Zielknoten f\"uhrt, und zwar in der  Reihenfolge in der sie vom Startknoten aus traversiert werden.
+\end{aufg}
+
+\begin{aufg}
+Benutzen Sie Ihre Funktion \textsc{Weg\_zum\_Ziel} und erg\"anzen Sie Ihr Programm so, dass am Schluss zus\"atzlich zur Distanz der Weg ausgegeben wird, welcher vom Startknoten zum Zielknoten f\"uhrt, falls dieser vom Startknoten aus erreichbar ist.
 \end{aufg}
 
 
@@ -680,44 +898,36 @@ Erg\"anzen Sie Ihr Programm nun auch so, dass am Schluss der Weg ausgelesen werd
 
 Betrachten Sie den Ausschnitt des ZVV-Netzes in Abb.~\ref{fig:zvv}.
 
-Sie m\"ochten wissen, wie man am schnellsten nur mit Tramfahren von der ETH Z\"urich zum Bahnhof Enge gelangt. Sie nehmen an, dass es immer ungef\"ahr gleich lange dauert um von einer Tramstation zur n\"achsten zu fahren, aber dass der gr\"osste Teil der Zeit an den Stationen selbst verloren geht, weil immer viele Leute ein- und aussteigen wollen. Sie m\"ochten also einen Weg finden, bei welchem man an m\"oglichst wenigen Tramstationen vorbeifahren muss, damit man m\"oglichst schnell am Ziel ankommt.
-
 \begin{figure}[htb]
 \includegraphics[width=0.97\linewidth]{../fig/zvv.png}
 \caption{Ausschnitt aus dem ZVV Liniennetzplan}
 \label{fig:zvv}
 \end{figure}
 
+Sie m\"ochten wissen, wie man am schnellsten nur mit Tramfahren von der ETH Z\"urich zum Bahnhof Enge gelangt. Sie nehmen an, dass es immer ungef\"ahr gleich lange dauert um von einer Tramstation zur n\"achsten zu fahren, aber dass der gr\"osste Teil der Zeit an den Stationen selbst verloren geht, weil immer viele Leute ein- und aussteigen wollen. Sie m\"ochten also einen Weg finden, bei welchem man an m\"oglichst wenigen Tramstationen vorbeifahren muss, damit man m\"oglichst schnell am Ziel ankommt.
+
 \begin{aufg}
-\"Uberlegen Sie sich, wie Sie dieses Problem mit Hilfe von einem Graphen modellieren k\"onnen und implementieren Sie den entsprechenden Graphen als Adjazenzmatrix. Betrachten Sie dabei aussschliesslich Tramlinien und -haltestellen und nur solche, die im Kartenausschnitt komplett sichtbar sind.
+\"Uberlegen Sie sich, wie Sie dieses Problem mit Hilfe von einem Graphen modellieren k\"onnen und implementieren Sie den entsprechenden Graphen als Adjazenzmatrix. Betrachten Sie dabei der Einfachheit halber nur Tramlinien und nur weisse Stationen.
 
 Handelt es sich um einen gerichteten oder ungerichteteten Graphen?
 \end{aufg}
 
 \begin{aufg}
-Stellen Sie sich vor, am Bellevue werden Bauarbeiten durchgef\"uhrt und das Bellevue muss temport\"ar f\"ur den Trambetrieb geschlossen werden. Erreichen Sie von der ETH aus dennoch den Bahnhof Enge? Benutzen Sie Ihr Programm, um dies zu \"uberpr\"ufen.
+Stellen Sie sich vor, am Central werden Bauarbeiten durchgef\"uhrt und das Bellevue muss temport\"ar f\"ur den Trambetrieb geschlossen werden. Erreichen Sie von der ETH aus dennoch den Paradeplatz? Um diese Frage zu beantworten, k\"onnen Sie den Netzplan studieren und auf ein visuelles Urteil zur\"uckgreifen. Wir m\"ochten dies aber nun mit unserem Programm beurteilen, welches zum Beispiel in einer Farhplan-App eingesetzt werden k\"onnte. Sie haben gelernt, dass ein Computer nicht auf eine visuelle Beurteilung zur\"uckgreifen kann, sondern dass er dazu eine Repr\"asentation wie die Adjazenzmatrix benutzen muss. Wie ver\"andert sich die Adjazentmatrix, wenn das Central geschlossen wird? Verwenden Sie nun ihr Programm, um zu beurteilen, ob der Paradeplatz auch bei geschlossenem Central von der ETH aus erreichbar ist.
 \end{aufg}
 
 \begin{aufg}
-Wieviele Tramstationen m\"ussen mindestens gefahren werden, um von der ETH aus zum Bahnhof Enge zu gelangen?
+Wieviele Tramstationen m\"ussen mindestens gefahren werden, um von der ETH aus zum Paradeplatz zu gelangen? Verwenden Sie dazu Ihr Programm.
 \begin{enumerate}[(a)]
-\item Falls das Bellevue gesperrt ist.
-\item Falls das Bellevue wieder ohne Einschr\"ankungen befahrbar ist.
+\item Falls das Central gesperrt ist.
+\item Falls das Central wieder ohne Einschr\"ankungen befahrbar ist.
 \end{enumerate}
 \end{aufg}
 
 \begin{aufg}
-Auf welchem Weg kommen Sie am schnellsten von der ETH zum Bahnhof Enge?
+Auf welchem Weg kommen Sie am schnellsten von der ETH zum Paradeplatz? Verwenden Sie dazu Ihr Programm.
 \begin{enumerate}[(a)]
-\item Falls das Bellevue gesperrt ist.
-\item Falls das Bellevue wieder ohne Einschr\"ankungen befahrbar ist.
+\item Falls das Central gesperrt ist.
+\item Falls das Central wieder ohne Einschr\"ankungen befahrbar ist.
 \end{enumerate}
-\end{aufg}
-
-\begin{aufg}
-Beurteilen Sie die Laufzeit des Algorithmus in Bezug auf die Anzahl Knoten und Kanten.
-\end{aufg}
-
-\begin{aufg}
-Beurteilen Sie den Speicherbedarf des Algorithmus in Bezug auf die Anzahl Knoten und Kanten.
 \end{aufg}

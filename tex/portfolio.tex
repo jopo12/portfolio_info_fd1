@@ -8,6 +8,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage[top=1in, bottom=1in, left=1.in, right=1.in]{geometry}
 \usepackage{amsmath}
+\usepackage{mathtools}
+
+\usepackage{adjustbox}
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{90}{1em}}}
 
 \usepackage{graphicx}
 \usepackage{subfig}
@@ -18,6 +27,7 @@
 \usepackage{listings}
 
 \usepackage{enumerate}
+\usepackage{paralist}
 
 \usepackage{pgf}
 \usepackage{tikz}

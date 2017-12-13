@@ -170,15 +170,17 @@ Wenn wir beim Startknoten beginnen, m\"ochten wir zuerst alle Knoten absuchen, w
 \hfill
 \begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
 def breitensuche (graph, start, ziel):
+	if start = = ziel:
+		return True
 	n = len(graph[0])
 	graueKnoten = [start]
 	farben = ['weiss'] * n
 	farben[start] = 'grau'
 	while graueKnoten != []:
 		current = graueKnoten[0]
-		if current = = ziel:
-			return True
 		for nachbar in nachbarsknoten(graph, current):
+			if nachbar = = ziel:
+				return True
 			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
 				farben[nachbar] = 'grau'
 				graueKnoten += [nachbar]
@@ -219,23 +221,25 @@ Wir speichern die Distanz zu jedem Knoten. Das heisst, der Startknoten bekommt d
 \hfill
 \begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
 def breitensuche (graph, start, ziel):
+	if start = = ziel:
+		print "Distanz : ", 0
+		return True
 	n = len(graph[0])
 	graueKnoten = [start]
 	farben = ['weiss'] * n
 	farben[start] = 'grau'
-	distanzen = [0] * n
+	distanzen = [-1] * n
 	while graueKnoten != []:
-		current = graueKnoten[0]
-		if current = = ziel:
-			print "Distanz: ", distanzen[ziel]
-			return True
+		current = graueKnoten.pop(0)
 		for nachbar in nachbarsknoten(graph, current):
 			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
+				distanzen[nachbar] = distanzen[current] + 1
+				if nachbar = = ziel:
+					print "Distanz: ", distanzen[ziel]
+					return True
 				farben[nachbar] = 'grau'
 				graueKnoten += [nachbar]
-				distanzen[nachbar] = distanzen[current] + 1
 		farben[current] = 'schwarz'
-		graueKnoten = graueKnoten[1:]
 	return False
 \end{lstlisting}
 \end{lsg}
@@ -243,14 +247,6 @@ def breitensuche (graph, start, ziel):
 \begin{lsg}
 \hfill
 \begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
-def nachbarsknoten(graph, node):
-	n = len(graph[0])
-	neighbors = []
-	for i in range(n):
-		if graph[node][i] == 1:
-			neighbors.append(i)
-	return neighbors
-
 def weg_zum_ziel(vorgaenger, ziel):
 	knoten = ziel
 	weg = [ziel]	
@@ -258,26 +254,35 @@ def weg_zum_ziel(vorgaenger, ziel):
 		weg = [vorgaenger[knoten]] + weg
 		knoten = vorgaenger[knoten]
 	return weg
+\end{lstlisting}
+\end{lsg}
 
+\begin{lsg}
+\hfill
+\begin{lstlisting}[language=Python,basicstyle=\small,tabsize=3]
 def breitensuche (graph, start, ziel):
+	if start = = ziel:
+		print "Distanz: ", 0
+		print "Weg zum Ziel: schon am Ziel!"
+		return True
 	n = len(graph[0])
 	graueKnoten = [start]
 	farben = ['weiss'] * n
 	farben[start] = 'grau'
-	distanzen = [0] * n
+	distanzen = [-1] * n
 	vorgaenger = [-1] * n
 	while graueKnoten != []:
 		current = graueKnoten[0]
-		if current == ziel:
-			print "Distanz: ", distanzen[ziel]
-			print "Weg zum Ziel: ", weg_zum_ziel(vorgaenger, ziel)
-			return True
 		for nachbar in nachbarsknoten(graph, current):
+			if nachbar = = ziel:
+				print "Distanz: ", distanzen[ziel]+1
+				print "Weg zum Ziel: ", weg_zum_ziel(vorgaenger, ziel)
+				return True
 			if farben[nachbar] != 'grau' and farben[nachbar] != 'schwarz':
-				farben[nachbar] = 'grau'
-				graueKnoten += [nachbar]
 				distanzen[nachbar] = distanzen[current] + 1
 				vorgaenger[nachbar] = current
+				farben[nachbar] = 'grau'
+				graueKnoten += [nachbar]
 		farben[current] = 'schwarz'
 		graueKnoten = graueKnoten[1:]
 	return False
@@ -285,35 +290,47 @@ def breitensuche (graph, start, ziel):
 \end{lsg}
 
 \begin{lsg}
-Die Stationen werden als Knoten abgebildet, die Linien als Kanten. Da im Kartenausschnitt alle Tramlinien in beide Richtungen befahren werden k\"onnen, k\"onnen wir das Problem als ungerichteten Graphen darstellen.
+Die Stationen werden als Knoten abgebildet, die Linien als Kanten. Da im Bild alle Tramlinien in beide Richtungen befahren werden k\"onnen, k\"onnen wir das Problem als ungerichteten Graphen darstellen, mittels folgender Adjazenzmatrix:
+
+  \begin{tabular}{ c | c  c  c  c  c  c  c  c  c  c  c  c  c  c  c |}
+  &  \rot{ETH/Universit\"atsspital}  & \rot{Haldenegg} & \rot{Kantonsschule} & \rot{Kunsthaus} &  \rot{Neumarkt} & \rot{Central} & \rot{Rudolf-Brun-Br\"ucke}  &  \rot{Rathaus} & \rot{Helmhaus}  & \rot{Bellevue}  & \rot{B\"urkliplatz}  & \rot{Bahnhofstr./HB}  &  \rot{Rennweg} & \rot{B\"orsenstrasse}  & \rot{Paradeplatz}   \\ \hline
+ETH/Universit\"atsspital  & 0 & 1 & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  0 & 0  & 0  & 0 & 0 \\ 
+Haldenegg &  1 &  0 &  0 &  0 &  0 & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  0 \\ 
+Kantonsschule &  1 & 0 & 0 & 1 & 0  & 0 &  0 & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  0  \\ 
+Kunsthaus  & 0  & 0 &  1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+Neumarkt    &  0 &  0 & 0 & 1  & 0 & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  0 & 0 \\
+Central    & 0 &  1 & 0 & 0 &  1 & 0 & 1  & 0  & 0  & 0  & 0 & 1  & 0 &  0  &  0 \\
+Rudolf-Brun-Br\"ucke    & 0  & 0  & 0  &  0 & 0 & 1 & 0 & 1 & 0  &  0  &  0 & 0 & 0 & 0 & 0 \\
+Rathaus    & 0 & 0 &  0 &  0 & 0  & 0 & 1  & 0 & 1  & 0  & 0  & 0  & 0  &  0  & 0\\
+Helmhaus   & 0 & 0 & 0 &  0 &  0 &  0 & 0 &  1 & 0 & 1  &  0 &  0 & 0  & 0 & 0 \\
+Bellevue    & 0  & 0  & 0 & 1  &  0 & 0  & 0  & 0 &  1 &  0 & 1 &  0 & 0 &  0   & 0 \\
+B\"urkliplatz    &  0 &  0 & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  1 & 0  &  0 & 0  & 1  & 0\\
+Bahnhofstr./HB   & 0  & 0  &  0 &  0 & 0  &  1 & 0  & 0  & 0 &  0 & 0  & 0  &  1 &  0   & 0\\
+Rennweg    &  0 & 0  & 0  &  0 & 0 & 0  & 0  & 0  & 0  & 0  &  1 & 1 & 0  & 0  &  0 \\
+B\"orsenstrasse    & 0  & 0  & 0  & 0  & 0  &0   & 0  & 0  & 0  &  1 & 1 & 0  & 0  & 0  & 0   \\
+Paradeplatz    & 0  & 0  &  0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 &  1 & 0  &  1 &  0 & 0  \\ \hline
+\end{tabular}
 \end{lsg}
 
 \begin{lsg}
-Der Bahnhof Enge ist von der ETH aus auch erreichbar wenn das Bellevue gesperrt ist.
+Die Adjazenzmatrix \"andert sich so, dass alle Eintr\"age in der Zeile und in der Spalte vom Central 0 werden.
+
+Der Paradeplatz ist von der ETH aus auch erreichbar wenn das Central gesperrt ist, und zwar mit folgendem Weg: ETH - Kantonsschule - Kunsthaus - Bellevue - B\"orsenstrasse - B\"urkliplatz - Paradeplatz.
 \end{lsg}
 
 \begin{lsg}
 \hfill
 \begin{enumerate}[(a)]
-\item 8
+\item 7 
 \item 6
 \end{enumerate}\end{lsg}
 
 \begin{lsg}
 \hfill
 \begin{enumerate}[(a)]
-\item ETH - Haldenegg - Central - Bahnhofstr. - Rennweg - Paradeplatz - Stockerstr. - Tunnelstr. - Bahnhof Enge
-\item ETH - Kantonsschule - Kunsthaus - Bellevue - B\"urkliplatz - Rentenanstalt - Bahnhof Enge
+\item ETH - Kantonsschule - Kunsthaus - Bellevue - B\"urkliplatz - B\"orsenstrasse - Paradeplatz
+\item ETH - Haldenegg - Central - Bahnhofstrasse/HB - Rennweg - Paradeplatz
 \end{enumerate}\end{lsg}
-
-\begin{lsg}
-Bei der Breitensuche kann es sein, dass der ganze Graph traversiert werden muss, um einen Knoten zu finden bzw. um festzustellen, dass er nicht vorhanden ist. Im schlechtesten Fall m\"ussen also alle Knoten und Kanten besucht werden, womit sich die Laufzeit der Breitensuche konzeptionell mit $\mathcal{O}(|V| + |E|)$ beschreiben l\"asst. In unserer Implementation m\"ussen wir jedoch um die Nachbarn eines Knotens zu finden in der Adjazenzmatrix alle anderen Knoten auf eine Verbindung \"uberpr\"ufen, was zu einer Laufzeit von $\mathcal{O}(|V|^2)$ f\"uhrt.
-\end{lsg}
-
-\begin{lsg}
-Da wir Informationen zu allen Knoten speichern (wie zum Beispiel die Farbe, die Distanz, der Vorg\"angerknoten) bel\"auft sich der Speicherbedarf f\"ur die Breitensuche auf  $\mathcal{O}(|V|)$. Zus\"atzlich dazu braucht das Speichern des Graphen mit einer Adjazenzmatrix $\mathcal{O}(|V|^2)$ Speicherplatz.
-\end{lsg}
-
 %%% Graphs
 
 

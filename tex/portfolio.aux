@@ -18,6 +18,7 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \bibstyle{alphadin}
+\providecommand \oddpage@label [2]{}
 \select@language{ngerman}
 \@writefile{toc}{\select@language{ngerman}}
 \@writefile{lof}{\select@language{ngerman}}
@@ -83,43 +84,53 @@
 \@writefile{toc}{\contentsline {paragraph}{K\"urzester Weg:}{15}{section*.22}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.13}{\ignorespaces Weg von Knoten 0 zu Knoten 4 \"uber Knoten 1 und 2\relax }}{15}{figure.caption.23}}
 \newlabel{fig:bfs:graph:pathblue}{{2.13}{15}{Weg von Knoten 0 zu Knoten 4 \"uber Knoten 1 und 2\relax }{figure.caption.23}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.14}{\ignorespaces Weg von Knoten 0 zu Knoten 4 \"uber Knoten 3, 1 und 2\relax }}{15}{figure.caption.24}}
-\newlabel{fig:bfs:graph:pathred}{{2.14}{15}{Weg von Knoten 0 zu Knoten 4 \"uber Knoten 3, 1 und 2\relax }{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Algorithmus}{16}{subsection.2.2.2}}
-\newlabel{subsec:algorithm}{{2.2.2}{16}{Algorithmus}{subsection.2.2.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.15}{\ignorespaces Startknoten (rot) und seine Nachbarn (grau)\relax }}{16}{figure.caption.25}}
-\newlabel{fig:bfs:bfs1}{{2.15}{16}{Startknoten (rot) und seine Nachbarn (grau)\relax }{figure.caption.25}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.16}{\ignorespaces Aktuell betrachtete Knoten (rot) und ihre Nachbarn (grau)\relax }}{16}{figure.caption.26}}
-\newlabel{fig:bfs:bfs2}{{2.16}{16}{Aktuell betrachtete Knoten (rot) und ihre Nachbarn (grau)\relax }{figure.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.17}{\ignorespaces Verlauf der Einf\"arbungen\relax }}{17}{figure.caption.27}}
-\newlabel{fig:bfs:bfs3}{{2.17}{17}{Verlauf der Einf\"arbungen\relax }{figure.caption.27}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.18}{\ignorespaces Zielknoten (gr\"un markiert) wurde gefunden\relax }}{17}{figure.caption.28}}
-\newlabel{fig:bfs:bfs4}{{2.18}{17}{Zielknoten (gr\"un markiert) wurde gefunden\relax }{figure.caption.28}{}}
-\@writefile{toc}{\contentsline {paragraph}{Zusammenfassung:}{17}{section*.29}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Breitensuche\relax }}{18}{algorithm.1}}
-\newlabel{alg:bfs}{{1}{18}{Breitensuche\relax }{algorithm.1}{}}
-\newlabel{alg:bfs:line:nachbarn}{{7}{18}{Breitensuche\relax }{algorithm.1}{}}
-\newlabel{euclidendwhile}{{12}{18}{Breitensuche\relax }{algorithm.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{18}{subsection.2.2.3}}
-\@writefile{toc}{\contentsline {paragraph}{Soziale Netzwerke:}{18}{section*.30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.19}{\ignorespaces Ein kleines Personennetzwerk\relax }}{19}{figure.caption.31}}
-\newlabel{bfs:ex:network}{{2.19}{19}{Ein kleines Personennetzwerk\relax }{figure.caption.31}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.20}{\ignorespaces Modellierung des Personennetzwerks als Graph\relax }}{20}{figure.caption.32}}
-\newlabel{bfs:ex:networkgraph}{{2.20}{20}{Modellierung des Personennetzwerks als Graph\relax }{figure.caption.32}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Breitensuche\relax }}{20}{algorithm.2}}
-\newlabel{alg:bfs:distance}{{2}{20}{Breitensuche\relax }{algorithm.2}{}}
-\newlabel{alg:bfs:line:nachbarn}{{8}{20}{Breitensuche\relax }{algorithm.2}{}}
-\newlabel{euclidendwhile}{{14}{20}{Breitensuche\relax }{algorithm.2}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Breitensuche\relax }}{21}{algorithm.3}}
-\newlabel{alg:bfs:path}{{3}{21}{Breitensuche\relax }{algorithm.3}{}}
-\newlabel{alg:bfs:line:nachbarn}{{9}{21}{Breitensuche\relax }{algorithm.3}{}}
-\newlabel{euclidendwhile}{{16}{21}{Breitensuche\relax }{algorithm.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Beispiele}{22}{subsection.2.2.4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.21}{\ignorespaces Ausschnitt aus dem ZVV Liniennetzplan\relax }}{22}{figure.caption.33}}
-\newlabel{fig:zvv}{{2.21}{22}{Ausschnitt aus dem ZVV Liniennetzplan\relax }{figure.caption.33}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{23}{section.2.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Algorithmus}{15}{subsection.2.2.2}}
+\newlabel{subsec:algorithm}{{2.2.2}{15}{Algorithmus}{subsection.2.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.14}{\ignorespaces Weg von Knoten 0 zu Knoten 4 \"uber Knoten 3, 1 und 2\relax }}{16}{figure.caption.24}}
+\newlabel{fig:bfs:graph:pathred}{{2.14}{16}{Weg von Knoten 0 zu Knoten 4 \"uber Knoten 3, 1 und 2\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.15}{\ignorespaces Startknoten (rot markiert) und seine Nachbarn (grau)\relax }}{16}{figure.caption.25}}
+\newlabel{fig:bfs:bfs1}{{2.15}{16}{Startknoten (rot markiert) und seine Nachbarn (grau)\relax }{figure.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.16}{\ignorespaces Aktuell betrachteter Knoten (rot markiert) und sein Nachbar (grau)\relax }}{17}{figure.caption.26}}
+\newlabel{fig:bfs:bfs21}{{2.16}{17}{Aktuell betrachteter Knoten (rot markiert) und sein Nachbar (grau)\relax }{figure.caption.26}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.17}{\ignorespaces Aktuell betrachtete Knoten (rot markiert) und sein Nachbar (grau)\relax }}{17}{figure.caption.27}}
+\newlabel{fig:bfs:bfs22}{{2.17}{17}{Aktuell betrachtete Knoten (rot markiert) und sein Nachbar (grau)\relax }{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.18}{\ignorespaces Verlauf der Einf\"arbungen\relax }}{17}{figure.caption.28}}
+\newlabel{fig:bfs:bfs3}{{2.18}{17}{Verlauf der Einf\"arbungen\relax }{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {paragraph}{Zusammenfassung:}{17}{section*.30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.19}{\ignorespaces Zielknoten (gr\"un markiert) wurde gefunden\relax }}{18}{figure.caption.29}}
+\newlabel{fig:bfs:bfs4}{{2.19}{18}{Zielknoten (gr\"un markiert) wurde gefunden\relax }{figure.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.20}{\ignorespaces Warteschlange nur mit dem Startknoten\relax }}{18}{figure.caption.31}}
+\newlabel{fig:bfs:bfs5}{{2.20}{18}{Warteschlange nur mit dem Startknoten\relax }{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.21}{\ignorespaces Entfernen des Startknotens aus der Warteschlange\relax }}{18}{figure.caption.32}}
+\newlabel{fig:bfs:bfs6}{{2.21}{18}{Entfernen des Startknotens aus der Warteschlange\relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.22}{\ignorespaces Verlauf der Warteschlange\relax }}{19}{figure.caption.33}}
+\newlabel{fig:bfs:bfs7}{{2.22}{19}{Verlauf der Warteschlange\relax }{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.23}{\ignorespaces Graph mit der Warteschlange\relax }}{19}{figure.caption.34}}
+\newlabel{fig:bfs:bfs7}{{2.23}{19}{Graph mit der Warteschlange\relax }{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{19}{subsection.2.2.3}}
+\@writefile{toc}{\contentsline {paragraph}{Soziale Netzwerke:}{19}{section*.35}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Breitensuche\relax }}{20}{algorithm.1}}
+\newlabel{alg:bfs}{{1}{20}{Breitensuche\relax }{algorithm.1}{}}
+\newlabel{alg:bfs:line:nachbarn}{{7}{20}{Breitensuche\relax }{algorithm.1}{}}
+\newlabel{euclidendwhile}{{12}{20}{Breitensuche\relax }{algorithm.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.24}{\ignorespaces Ein kleines Personennetzwerk\relax }}{21}{figure.caption.36}}
+\newlabel{bfs:ex:network}{{2.24}{21}{Ein kleines Personennetzwerk\relax }{figure.caption.36}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.25}{\ignorespaces Modellierung des Personennetzwerks als Graph\relax }}{22}{figure.caption.37}}
+\newlabel{bfs:ex:networkgraph}{{2.25}{22}{Modellierung des Personennetzwerks als Graph\relax }{figure.caption.37}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces Breitensuche\relax }}{22}{algorithm.2}}
+\newlabel{alg:bfs:distance}{{2}{22}{Breitensuche\relax }{algorithm.2}{}}
+\newlabel{alg:bfs:line:nachbarn}{{8}{22}{Breitensuche\relax }{algorithm.2}{}}
+\newlabel{euclidendwhile}{{14}{22}{Breitensuche\relax }{algorithm.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Breitensuche\relax }}{23}{algorithm.3}}
+\newlabel{alg:bfs:path}{{3}{23}{Breitensuche\relax }{algorithm.3}{}}
+\newlabel{alg:bfs:line:nachbarn}{{9}{23}{Breitensuche\relax }{algorithm.3}{}}
+\newlabel{euclidendwhile}{{16}{23}{Breitensuche\relax }{algorithm.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Beispiele}{24}{subsection.2.2.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.26}{\ignorespaces Ausschnitt aus dem ZVV Liniennetzplan\relax }}{24}{figure.caption.38}}
+\newlabel{fig:zvv}{{2.26}{24}{Ausschnitt aus dem ZVV Liniennetzplan\relax }{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{25}{section.2.3}}
 \bibdata{literatur}
-\@writefile{toc}{\contentsline {chapter}{Literatur}{27}{lsg.2.22}}
+\@writefile{toc}{\contentsline {chapter}{Literatur}{30}{Item.21}}
 \bibcite{cormen}{{CLR04}{}{{}}{{}}}
 \bibcite{ottmann}{{OW12}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers

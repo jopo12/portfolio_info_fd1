@@ -24,10 +24,10 @@
 \contentsline {paragraph}{}{14}{section*.20}
 \contentsline {paragraph}{Algorithmus entwickeln:}{15}{section*.21}
 \contentsline {paragraph}{K\"urzester Weg:}{15}{section*.22}
-\contentsline {subsection}{\numberline {2.2.2}Algorithmus}{16}{subsection.2.2.2}
-\contentsline {paragraph}{Zusammenfassung:}{17}{section*.29}
-\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{18}{subsection.2.2.3}
-\contentsline {paragraph}{Soziale Netzwerke:}{18}{section*.30}
-\contentsline {subsection}{\numberline {2.2.4}Beispiele}{22}{subsection.2.2.4}
-\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{23}{section.2.3}
-\contentsline {chapter}{Literatur}{27}{lsg.2.22}
+\contentsline {subsection}{\numberline {2.2.2}Algorithmus}{15}{subsection.2.2.2}
+\contentsline {paragraph}{Zusammenfassung:}{17}{section*.30}
+\contentsline {subsection}{\numberline {2.2.3}Anwendung und Erweiterung}{19}{subsection.2.2.3}
+\contentsline {paragraph}{Soziale Netzwerke:}{19}{section*.35}
+\contentsline {subsection}{\numberline {2.2.4}Beispiele}{24}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{25}{section.2.3}
+\contentsline {chapter}{Literatur}{30}{Item.21}
