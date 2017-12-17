@@ -163,7 +163,8 @@ def nachbarsknoten(graph, node):
 
 \begin{lsg}
 Wenn wir beim Startknoten beginnen, m\"ochten wir zuerst alle Knoten absuchen, welche mit minimaler Distanz vom Startknoten aus erreichbar sind, also die direkten Nachbarsknoten vom Startknoten. Wenn wir in k\"urzester Distanz den gesuchten Knoten nicht gefunden haben m\"ussen wir die n\"achste gr\"ossere Distanz in Kauf nehmen, in der Hoffnung, den Knoten dort zu finden. Wenn wir so vorgehen und den Knoten finden wissen wir n\"amlich, dass wir ihn auf dem k\"urzesten m\"oglichen Weg gefunden haben.
-\textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm}} detaillierter erl\"autert.
+
+\textit{Das Vorgehen und der Algorithmus wird in Kapitel \ref{subsec:algorithm} detaillierter erl\"autert.}
 \end{lsg}
 
 \begin{lsg}
@@ -191,6 +192,7 @@ def breitensuche (graph, start, ziel):
 \end{lsg}
 
 \begin{lsg}
+Der Graph kann mit folgender Adjazenzmatrix $A$ modelliert werden:
 \[A =  \begin{pmatrix}
   0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0  \\
   0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0  \\
@@ -206,7 +208,7 @@ def breitensuche (graph, start, ziel):
 \end{lsg}
 
 \begin{lsg}
-Es gibt eine Verbindung: das Programm sollte $True$ zur\"uckgeben.
+Es gibt eine Verbindung zwischen Anna und John (\"uber Tina): das Programm sollte $True$ zur\"uckgeben.
 \end{lsg}
 
 \begin{lsg}
@@ -214,7 +216,9 @@ Es g\"abe trotzdem noch eine Verbindung zwischen Anna und Jimmy, jedoch nicht zw
 \end{lsg}
 
 \begin{lsg}
-Wir speichern die Distanz zu jedem Knoten. Das heisst, der Startknoten bekommt die Distanz 0. Jeder weitere Knoten, der vom aktuellen Knoten aus entdeckt wird (und grau gef\"arbt wird) bekommt die Distanz des aktuellen Knotens plus 1.
+Wir speichern die Distanz zu jedem Knoten. Das heisst, der Startknoten bekommt die Distanz 0. Jeder weitere Knoten welcher vom aktuellen Knoten aus entdeckt wird (und grau gef\"arbt wird) bekommt die Distanz des aktuellen Knotens plus 1.
+
+\textit{Warum eine Variable hier nicht ausreicht wird im Abschnitt nach der Aufgabe genauer erkl\"art.}
 \end{lsg}
 
 \begin{lsg}
@@ -292,6 +296,7 @@ def breitensuche (graph, start, ziel):
 \begin{lsg}
 Die Stationen werden als Knoten abgebildet, die Linien als Kanten. Da im Bild alle Tramlinien in beide Richtungen befahren werden k\"onnen, k\"onnen wir das Problem als ungerichteten Graphen darstellen, mittels folgender Adjazenzmatrix:
 
+
   \begin{tabular}{ c | c  c  c  c  c  c  c  c  c  c  c  c  c  c  c |}
   &  \rot{ETH/Universit\"atsspital}  & \rot{Haldenegg} & \rot{Kantonsschule} & \rot{Kunsthaus} &  \rot{Neumarkt} & \rot{Central} & \rot{Rudolf-Brun-Br\"ucke}  &  \rot{Rathaus} & \rot{Helmhaus}  & \rot{Bellevue}  & \rot{B\"urkliplatz}  & \rot{Bahnhofstr./HB}  &  \rot{Rennweg} & \rot{B\"orsenstrasse}  & \rot{Paradeplatz}   \\ \hline
 ETH/Universit\"atsspital  & 0 & 1 & 1  & 0  & 0  & 0  & 0  & 0  & 0  & 0  &  0 & 0  & 0  & 0 & 0 \\ 
@@ -313,9 +318,11 @@ Paradeplatz    & 0  & 0  &  0 & 0  & 0  & 0  & 0  & 0  & 0  & 0 &  1 & 0  &  1 &
 \end{lsg}
 
 \begin{lsg}
-Die Adjazenzmatrix \"andert sich so, dass alle Eintr\"age in der Zeile und in der Spalte vom Central 0 werden.
-
-Der Paradeplatz ist von der ETH aus auch erreichbar wenn das Central gesperrt ist, und zwar mit folgendem Weg: ETH - Kantonsschule - Kunsthaus - Bellevue - B\"orsenstrasse - B\"urkliplatz - Paradeplatz.
+\hfill
+\begin{enumerate}[(a)]
+\item Die Adjazenzmatrix \"andert sich so, dass alle Eintr\"age in der Zeile und in der Spalte vom Central 0 werden.
+\item Der Paradeplatz ist von der ETH aus auch erreichbar wenn das Central gesperrt ist, und zwar mit folgendem Weg: ETH - Kantonsschule - Kunsthaus - Bellevue - B\"orsenstrasse - B\"urkliplatz - Paradeplatz.
+\end{enumerate}
 \end{lsg}
 
 \begin{lsg}
@@ -323,7 +330,8 @@ Der Paradeplatz ist von der ETH aus auch erreichbar wenn das Central gesperrt is
 \begin{enumerate}[(a)]
 \item 7 
 \item 6
-\end{enumerate}\end{lsg}
+\end{enumerate}
+\end{lsg}
 
 \begin{lsg}
 \hfill
