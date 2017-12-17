@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.12.9)  15 DEC 2017 16:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.12.9)  17 DEC 2017 17:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1117,23 +1117,7 @@ Package: amsthm 2015/03/04 v2.20.2
 \c@prog=\count171
 \c@kontr=\count172
 \c@lsg=\count173
- (./portfolio.aux
-
-LaTeX Warning: Label `fig:bfs:bfs7' multiply defined.
-
-
-LaTeX Warning: Label `alg:bfs:line:nachbarn' multiply defined.
-
-
-LaTeX Warning: Label `euclidendwhile' multiply defined.
-
-
-LaTeX Warning: Label `alg:bfs:line:nachbarn' multiply defined.
-
-
-LaTeX Warning: Label `euclidendwhile' multiply defined.
-
-)
+ (./portfolio.aux)
 \openout1 = `portfolio.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
@@ -1151,7 +1135,8 @@ LaTeX Font Info:    ... okay on input line 66.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
 LaTeX Font Info:    ... okay on input line 66.
 \AtBeginShipoutBox=\box65
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count174
 \scratchdimen=\dimen262
@@ -1301,64 +1286,64 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 35.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 40.
+(babel)             in language  on input line 38.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 40.
+(babel)             in language  on input line 38.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 40.
+(babel)             in language  on input line 38.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 40.
+(babel)             in language  on input line 38.
  [1
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 54.
+(babel)             in language  on input line 51.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 54.
+(babel)             in language  on input line 51.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 54.
+(babel)             in language  on input line 51.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 54.
+(babel)             in language  on input line 51.
  [2 <../cmap/bsuche_cmap.pdf>]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 56.
+(babel)             in language  on input line 52.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 56.
+(babel)             in language  on input line 52.
 
-Overfull \hbox (3.21202pt too wide) in paragraph at lines 57--58
+Overfull \hbox (3.21202pt too wide) in paragraph at lines 53--54
 \OT1/cmr/m/n/12 Die Un-ter-la-gen sind so auf-ge-baut, dass schritt-wei-se neue
  Kon-zep-te ein-gef[]uhrt und erl[]autert
  []
 
 Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 56.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 56.
+Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 60.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 60.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 64.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 76.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 76.
+(babel)             in language  on input line 79.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 83.
+(babel)             in language  on input line 90.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 83.
+(babel)             in language  on input line 90.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 94.
+(babel)             in language  on input line 90.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 94.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 94.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 94.
+(babel)             in language  on input line 90.
 [3]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 117.
+(babel)             in language  on input line 111.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 117.
+(babel)             in language  on input line 111.
 )
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 99.
@@ -1375,7 +1360,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 99.
 (./ao.tex
-<../fig/sbahn_netz_ausschnitt.png, id=201, 1056.19594pt x 574.39594pt>
+<../fig/sbahn_netz_ausschnitt.png, id=203, 1056.19594pt x 574.39594pt>
 File: ../fig/sbahn_netz_ausschnitt.png Graphic file (type png)
 
 <use ../fig/sbahn_netz_ausschnitt.png>
@@ -1554,7 +1539,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 594.
  [18]
-<../fig/profile.jpg, id=369, 184.69pt x 227.85126pt>
+<../fig/profile.jpg, id=370, 184.69pt x 227.85126pt>
 File: ../fig/profile.jpg Graphic file (type jpg)
  <use ../fig/profile.jpg>
 Package pdftex.def Info: ../fig/profile.jpg used on input line 601.
@@ -1688,7 +1673,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 897.
 
-<../fig/zvv.png, id=408, 1322.9425pt x 1244.65pt>
+<../fig/zvv.png, id=410, 1322.9425pt x 1244.65pt>
 File: ../fig/zvv.png Graphic file (type png)
  <use ../fig/zvv.png>
 Package pdftex.def Info: ../fig/zvv.png used on input line 902.
@@ -1811,18 +1796,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 117.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 117.
 Package rerunfilecheck Info: File `portfolio.out' has not changed.
-(rerunfilecheck)             Checksum: A3B85257A7B65C01844122F262D20CE3;1475.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
+(rerunfilecheck)             Checksum: 3AD3FB3B3ACE8A5FA3EFA54E89C0F8DD;1475.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 24027 strings out of 493029
- 423539 string characters out of 6136234
- 577561 words of memory out of 5000000
- 26795 multiletter control sequences out of 15000+600000
+ 24038 strings out of 493029
+ 423787 string characters out of 6136234
+ 578779 words of memory out of 5000000
+ 26806 multiletter control sequences out of 15000+600000
  14079 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,12n,96p,1039b,2030s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1838,10 +1819,10 @@ c/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on portfolio.pdf (32 pages, 749772 bytes).
+Output written on portfolio.pdf (32 pages, 751453 bytes).
 PDF statistics:
- 680 PDF objects out of 1000 (max. 8388607)
- 612 compressed objects within 7 object streams
+ 682 PDF objects out of 1000 (max. 8388607)
+ 614 compressed objects within 7 object streams
  285 named destinations out of 1000 (max. 500000)
  217 words of extra memory for PDF output out of 10000 (max. 10000000)
 
