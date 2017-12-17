@@ -542,7 +542,7 @@ Am Schluss wird der Startknoten schwarz eingef\"arbt. Der aktuell eingef\"arbte 
 \end{tikzpicture}
 
 \caption{Graph mit der Warteschlange}
-\label{fig:bfs:bfs7}
+\label{fig:bfs:bfs8}
 \end{center}
 \end{figure}
 
@@ -571,7 +571,7 @@ Dieses Vorgehen f\"uhrt uns nun zur Formulierung des Algorithmus f\"ur die Breit
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-   \EndWhile\label{euclidendwhile}
+   \EndWhile\label{alg:bfs:euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
 \end{algorithmic}
@@ -800,7 +800,7 @@ Wir k\"onnen nun also den Algorithmus~\ref{alg:bfs} erweitern mit dieser Speiche
 	\textcolor{red}{\State $distanzen$ = array\lbrack Anzahl Knoten\rbrack}
       \While{$graueKnoten \neq \emptyset$ }
    	\State $current \gets$ $graueKnoten$.dequeue()
-	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:distance:line:nachbarn}
 		\If {$nachbar == ziel$} 
 			\Return true\Comment{Zielknoten gefunden}
 		\EndIf
@@ -811,7 +811,7 @@ Wir k\"onnen nun also den Algorithmus~\ref{alg:bfs} erweitern mit dieser Speiche
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-   \EndWhile\label{euclidendwhile}
+   \EndWhile\label{alg:bfs:distance:euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
 \end{algorithmic}
@@ -867,7 +867,7 @@ In Algorithmus~\ref{alg:bfs:path} sehen Sie die Erweiterung mit den Vorg\"angerk
 	\textcolor{red}{\State $vorgaenger$ = array\lbrack Anzahl Knoten\rbrack}
       \While{$graueKnoten \neq \emptyset$ }
    	\State $current \gets$ $graueKnoten$.dequeue()
-	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:line:nachbarn}
+	\ForAll {$nachbar$ in \Call{nachbarknoten}{$graph, current$}}\label{alg:bfs:path:line:nachbarn}
 		\If {$current = ziel$} 
    			\Return true\Comment{Zielknoten gefunden}
 	   	\EndIf
@@ -879,7 +879,7 @@ In Algorithmus~\ref{alg:bfs:path} sehen Sie die Erweiterung mit den Vorg\"angerk
 		\EndIf
 	\EndFor
 	\State $current$ schwarz einf\"arben\Comment{Knoten fertig bearbeitet}
-   \EndWhile\label{euclidendwhile}
+   \EndWhile\label{alg:bfs:path:euclidendwhile}
    \State \textbf{return} false\Comment{Zielknoten nicht gefunden}
 \EndProcedure
 \end{algorithmic}

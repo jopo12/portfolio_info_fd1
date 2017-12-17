@@ -30,4 +30,4 @@
 \contentsline {paragraph}{Soziale Netzwerke:}{19}{section*.35}
 \contentsline {subsection}{\numberline {2.2.4}Beispiele}{23}{subsection.2.2.4}
 \contentsline {section}{\numberline {2.3}L\IeC {\"o}sungen}{25}{section.2.3}
-\contentsline {chapter}{Literatur}{29}{Item.21}
+\contentsline {chapter}{Literatur}{29}{Item.19}

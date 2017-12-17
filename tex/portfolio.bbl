@@ -20,6 +20,11 @@
 \newblock Springer Fachmedien Wiesbaden, 2014. --
 \newblock ISBN 978--3--658--06432--7
 
+\bibitem[Kra02]{krathwohl}
+\textsc{Krathwohl}, David~R.:
+\newblock A Revision of Bloom's Taxonomy: An Overview.
+\newblock {In: }\emph{Theory Into Practice} 41 (2002), Nr. 4, S. 212--218
+
 \bibitem[OW12]{ottmann}
 \textsc{Ottmann}, T. ; \textsc{Widmayer}, P.:
 \newblock \emph{Algorithmen und Datenstrukturen}.

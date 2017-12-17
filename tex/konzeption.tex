@@ -2,10 +2,10 @@
 
 Das Thema der vorliegenden Arbeit ist die Ausarbeitung des Algorithmus der Breitensuche in Form Leitprogrammartiger Unterrichtsunterlagen (LPU) für das Gymnasium.  
 Zu diesem Zweck wurde folgende Concept-Map (s. Abb.~\ref{fig:cmap}) entworfen, die sowohl das Vorwissen als auch einen kleinen Ausblick auf weitere Themen geben soll.
-Dabei wurden solche Konzepte blau gefärbt, welche als Vorwissen schon bekannt sein sollten, aber im Rahmen dieser Arbeit nochmal wiederholt werden. 
+Dabei wurden Konzepte blau gefärbt, welche als Vorwissen schon bekannt sein sollten, aber im Rahmen dieser Arbeit nochmal wiederholt werden. 
 Neue Konzepte wurden grün eingefärbt und werden in dieser Arbeit behandelt bzw. eingeführt.
 Weitere Konzepte, die nicht mehr in dieser Arbeit behandelt werden, wurden orange gefärbt. 
-Insbesondere haben m"ochten wir die Darstellung von Graphen in Form von Adjazenmatrizen wiederholen und fundiert mit den SuS besprechen. 
+Insbesondere m"ochten wir die Darstellung von Graphen in Form von Adjazenmatrizen wiederholen und fundiert mit den SuS besprechen. 
 Deshalb wurde das Konzept \emph{gr"un} gef"arbt. 
 Wir haben uns bewusst f"ur die Darstellung mit Adjazenzmatrizen entschieden, da wir dieses f"ur den Algorithmus der Breitensuche ben"otigen. 
 Alternativ kann man auch Adjazenzlisten (\emph{orange}) verwenden.
@@ -34,20 +34,16 @@ Die vorliegenden Unterlagen sollten im zweiten Quartal des Erg\"anzungsfaches In
 
 \subsection{Vorwissen}
 
-Es wird davon ausgegangen, dass die Sch\"uler bereits einige Grundlagen der Informatik kennengelernt haben, insbesondere den Begriff Algorithmus. Zum Vorwissen der Sch\"uler sollte ausserdem der Begriff des Graphen geh\"oren. 
-  
-
-Es wird davon ausgegangen, dass die Sch\"uler den Begriff des Graphen bereits kennen. Dieses Vorwissen soll zu Beginn nochmals aktiviert werden. Dabei werden die wichtigsten Begriffe repetiert: der Aufbau eines Graphen aus Knoten und Kanten, gerichtete und ungerichtete Graphen sowie der Begriff von Nachbarsknoten. Damit wird eine klare Basis f\"ur die in den Unterlagen verwendeten Begriffe geschaffen.
+Es wird davon ausgegangen, dass die Sch\"uler bereits einige Grundlagen der Informatik kennengelernt haben, insbesondere den Begriff Algorithmus. Zum Vorwissen der Sch\"uler sollte ausserdem der Begriff des Graphen geh\"oren. Dieses Vorwissen soll zu Beginn nochmals aktiviert werden. Dabei werden die wichtigsten Begriffe repetiert: der Aufbau eines Graphen aus Knoten und Kanten, gerichtete und ungerichtete Graphen sowie der Begriff von Nachbarsknoten. Damit wird eine klare Basis f\"ur die in den Unterlagen verwendeten Begriffe geschaffen.
 
 Der Begriff des Algorithmus wird als Vorwissen vorausgesetzt, aber nicht nochmals aktiviert bzw. repetiert, da davon ausgegangen wird, dass sich die Sch\"uler schon vertiefter mit dem Begriff auseinandergesetzt haben und im Rahmen des Erg\"anzungsfaches Informatik schon verschiedene Algorithmen kennengelernt bzw. entwickelt haben. 
 Die SuS k"onnen Algorithmen in Form von Pseudocode lesen und selber verfassen.
-%TODO  Kann das weg?
-%Wir nehmen an, dass die Sch\"uler auch schon ein grundlegendes Verst\"andnis von Komplexit\"atsanalyse besitzen.
 
-F\"ur die Implementationen und die Programmier\"ubungen werden keine Details repetiert, da die Sch\"uler auch hier im Rahmen des Erg\"anzungsfaches bereits einige Programme implementiert und die Grundlagen von Datentypen, Kontrollstrukturen und modularem Aufbaus kennengelernt und viel ge\"ubt haben sollten. 
+
+F\"ur die Implementationen und die Programmier\"ubungen werden keine Details repetiert, da die Sch\"uler auch hier im Rahmen des Erg\"anzungsfaches bereits einige Programme implementiert und die Grundlagen von Datentypen, Kontrollstrukturen und modularem Aufbau kennengelernt und viel ge\"ubt haben sollten. 
 Wichtig sind f\"ur die Programmieraufgaben in diesen Unterlagen unter anderem Unterprogramme, Arrays und Schleifen.
 Zus\"atzlich sollen die Sch\"uler  wissen, wie Programme modular aufgebaut werden k"onnen und bereits in der Lage sein, einfache Programme in TigerJython zu schreiben. 
-%Grundlegende Kenntnisse von elementaren Datentypen und Arrays sowie von Kontrollstrukturen werden f\"ur das L\"osen der Programmieraufgaben vorausgesetzt. 
+
 Die Darstellung der Graphen als Listen von Listen in Python wird explizit repetiert.
 
 
@@ -70,58 +66,56 @@ Dies kann man erreichen indem man in der Breite oder in der Tiefe sucht.
 Mithilfe der Breitensuche soll ein elementarer Einstieg aufgezeigt werden. 
 
 Graphen sind aber nicht nur \glqq sch"one\grqq\ Objekte, sonder mithilfe dieser k"onnen wir Probleme mathematisch modellieren. 
-Viele Probleme lassen sich auf Graphen reduzieren (SAT~\cite{hrom1}) und sind ein grundlegendes Werkzeug um Probleme zu klassifizieren.
+Viele Probleme lassen sich auf Graphen reduzieren (SAT~\cite{hrom1}) und sind ein grundlegendes Werkzeug um Probleme zu klassifizieren. 
 
 
 \subsection{Dispositionsziel}
 
 Die SuS wissen, dass man gewisse Probleme mit Hilfe von Graphen modellieren und mit Graphenalgorithmen lösen kann. 
-Sie können analysieren und beurteilen, ob Problemstellungen mithilfe von Breitensuche in einem Graphen gelöst werden können.
+Sie können analysieren und beurteilen, ob Problemstellungen mithilfe einer Breitensuche in einem Graphen gelöst werden können.
 
 
 
 \subsection{Operationalisierte Lernziele}
 
+Die folgenden Lernziele richten sich nach den Ebenen der revidierten Lernzieltaxonomie~\cite{krathwohl}: Wissen (K1), Verstehen (K2), Anwenden (K3), Analysieren (K4), Evaluieren (K5), Erschaffen (K6).
+
 Nach dieser Einheit können die SuS \dots
 
 \begin{enumerate}
-\item \dots die Begriffe und Unterschiede zur Darstellung von einfachen Graphen verstehen: (un)gerichtet, Knoten und Kante.
+\item \dots die Begriffe und Unterschiede zur Darstellung von einfachen Graphen verstehen: (un)gerichtet, Knoten und Kante. (K2)
 
-\item \dots verschiedene Darstellungsmöglichkeiten von Graphen aufzählen und diese ineinander überführen: Zeichnung, Knoten-/ Kantenmenge und Adjazenzmatrix.
+\item \dots verschiedene Darstellungsmöglichkeiten von Graphen aufzählen und diese ineinander überführen: Zeichnung, Knoten-/ Kantenmenge und Adjazenzmatrix. (K1)
 
-\item \dots die Nachbarn von Knoten auf verschieden Darstellungen von Graphen bestimmen. 
+\item \dots die Nachbarn von Knoten auf verschieden Darstellungen von Graphen bestimmen. (K3)
 
-\item \dots ein Programm schreiben, welches die Nachbarn eines bestimmten Knoten eines beliebigen Graphen ausgibt.
+\item \dots ein Programm schreiben, welches die Nachbarknoten eines bestimmten Knotens in einer Adjazenzmatrix ausgibt. (K3)
 
-\item\dots ein gegebenes Problem mit einem Graphen modellieren.
+\item\dots ein gegebenes Problem analysieren und mit einem Graphen modellieren. (K4)
  
-\item \dots die Funktionsweise einer Breitensuche in einem Graphen beschreiben.
+\item \dots die Funktionsweise einer Breitensuche in einem Graphen beschreiben. (K1)
 
-\item\dots f\"ur einen Graphen mittels Breitensuche beurteilen, ob ein Knoten von einem anderen Knoten aus erreichbar ist.
+\item\dots f\"ur einen Graphen mittels Breitensuche beurteilen, ob ein Knoten von einem anderen Knoten aus erreichbar ist. (K3)
 
-\item\dots f\"ur einen Graphen mittels Breitensuche den k\"urzesten Weg von einem Knoten zu einem anderen Knoten finden (in Bezug auf die Anzahl Kanten, die traversiert werden m\"ussen).
+\item\dots f\"ur einen Graphen mittels Breitensuche den k\"urzesten Weg von einem Knoten zu einem anderen Knoten finden (in Bezug auf die Anzahl Kanten, die traversiert werden m\"ussen). (K3)
 
-\item\dots f\"ur einen Graphen mittels Breitensuche eine Folge von Knoten angeben, welche auf k\"urzestem Weg von einem Knoten zu einem anderen Knoten f\"uhren.
+\item\dots f\"ur einen Graphen mittels Breitensuche eine Folge von Knoten angeben, welche auf k\"urzestem Weg von einem Knoten zu einem anderen Knoten f\"uhren. (K3)
 
-\item \dots ein gegebenes Problem mit einem Graphen modellieren und mittels Breitensuche eine passende Lösung des Problems finden.
+\item \dots ein gegebenes Problem mit einem Graphen modellieren und mittels Breitensuche eine passende Lösung des Problems finden. (K6)
 
-\item \dots die Breitensuche in Tiger Jython implementieren.
-
-\item \dots die Laufzeit einer Breitensuche beurteilen.
-
-\item \dots den Speicherbedarf der Breitensuche beurteilen.
+\item \dots den in Pseudocode formulierten Algorithmus der Breitensuche in einem Programm in TygerJython implementieren. (K3)
 
 
 \end{enumerate}
 
 \section{Sequenzierung der Unterrichtseinheit}\label{lpu:inhalt}
 
-Im ersten Abschnitt m"ochten wir die SuS f"ur das Thema motivieren und abholen.
+Aus der Concept-Map und den Lernzielen ergibt sich folgender Ablauf für die LPU:
+Zuerst m"ochten wir die SuS f"ur das Thema motivieren und abholen.
 Dazu pr"asentieren wir das Problem des k"urzesten Weges im "OV. 
 Anhand dessen zeigen wir dann auf, dass wir zuerst gewisse Konzepte wiederholen und erweitern m"ussen, um dieses Problem zu l"osen.
 
-Aus der Concept-Map und den Lernzielen ergibt sich folgender Ablauf für die LPU:
-In einem ersten Abschnitt werden nochmal die Grundlagen zu Graphen und ihrer Darstellungen wiederholt und anhand von Beispielen und Aufgaben geübt. 
+In einem ersten Abschnitt werden also nochmal die Grundlagen zu Graphen und ihrer Darstellungen wiederholt und anhand von Beispielen und Aufgaben geübt. 
 Dabei wird darauf geachtet zuerst eine zeichnerische Darstellung, dann eine Mengendarstellung und zum Schluss die Adjazenzmatrix einzuführen. 
 Hierbei wurde sich an \cite{cormen,ottmann} orientiert.
 Zum Schluss des ersten Abschnitts soll mit der Einführung von Nachbarn und dem Schreiben eines solchen Programms eine Vorarbeit für den kommenden Abschnitt gelegt werden.
